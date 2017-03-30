@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'/>
+    <title>Publishing Opportunity Data: A Primer</title>
+
+    <script type="text/javascript" class='remove'>
+        var respecConfig = {
+          // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
+          specStatus:           "CG-DRAFT",
+
+          // the specification's short name, as in http://www.w3.org/TR/short-name/
+          shortName:            "publishing-opportunity-data-primer",
+
+          // if you wish the publication date to be other than today, set this
+          // publishDate:  "2009-08-06",
+
+          // if there is a previously published draft, uncomment this and set its YYYY-MM-DD date
+          // and its maturity status
+          // previousPublishDate:  "1977-03-15",
+          // previousMaturity:  "WD",
+
+          // if there a publicly available Editor's Draft, this is the link
+          edDraftURI:           "https://www.openactive.io/opportunity-data-primer/",
+          //prevED:  "https://www.openactive.io/spec-template/",
+          //previousURI:  "https://www.openactive.io/realtime-paged-data-exchange/0.2.3/",
+          //testSuiteURI: "https://www.openactive.io/endpoint-validator/",
+          copyrightStart: 2017,
+
+          // if this is a LCWD, uncomment and set the end of its review period
+          // lcEnd: "2009-08-05",
+
+          // editors, add as many as you like
+          // only "name" is required
+          editors: [
+              { name: "Leigh Dodds", url: "http://ldodds.com",
+                company: "Open Data Institute", companyURL: "http://opendata.institute/",
+                w3cid: "55359" },
+          ],
+
+          // authors, add as many as you like.
+          // This is optional, uncomment if you have authors as well as editors.
+          // only "name" is required. Same format as editors.
+
+          authors: [
+          ],
+
+          otherLinks: [{
+                key: "Repo",
+                value: "We are on Github",
+                href: "https://github.com/openactive/opportunity-data-primer/",
+                class: "repo"
+            }, {
+                key: "Issues",
+                href: "https://github.com/openactive/opportunity-data-primer/issues/"
+            }, {
+                key: "Version",
+                value: "Editor's Draft"
+            }
+          ],
+
+          logos: [
+            {
+              src: 'https://www.openactive.io/assets/openactive-logo-large.png',
+              href: "https://www.openactive.io",
+              alt: "openactive.io",
+              width: 255, //170
+              height: 33, //22
+              id: 'logo'
+            }
+          ],
+
+          // extend the bibliography entries
+          //localBiblio: {},
+
+          // name of the WG
+          wg:           "Openactive Community Group",
+
+          // URI of the public WG page
+          wgURI:        "http://www.w3.org/community/openactive/",
+
+          // name (with the @w3c.org) of the public mailing to which comments are due
+          wgPublicList: "public-openactive",
+
+          // URI of the patent status for this WG, for Rec-track documents
+          // !!!! IMPORTANT !!!!
+          // This is important for Rec-track documents, do not copy a patent URI from a random
+          // document unless you know what you're doing. If in doubt ask your friendly neighbourhood
+          // Team Contact.
+          wgPatentURI:  "",
+          maxTocLevel: 4,
+          preProcess: [ ] ,
+          alternateFormats: [ {uri: "diff-previous.html", label: "diff to previous version"} ],
+          isRecTrack:   true,
+          isNoTrack:    true,
+          issueBase:    "https://github.com/openactive/opportunity-data-primer/issues/",
+          format: "markdown",
+          noIDLIn: true,
+          inlineCSS: true,
+          noLegacyStyle: false,
+          localBiblio: {
+            "JSON-LD": {
+                "href": "https://www.w3.org/TR/json-ld/",
+                "title": "JSON-LD 1.0",
+                "status": "REC",
+                "publisher": "W3C",
+            },
+            "SCHEMA-ORG": {
+                "href": "http://schema.org/",
+                "title": "Schema.org"
+                
+            },
+            "SKOS": {
+                "href": "https://www.w3.org/TR/skos-primer",
+                "title": "SKOS Simple Knowledge Organization System Primer",
+                "status": "NOTE",
+                "publisher": "W3C",            
+            },
+            "Modelling-Opportunity-Data": {
+                "href": "https://www.openactive.io/modelling-opportunity-data/",
+                "title": "Modelling Opportunity Data",
+                "status": "CG-DRAFT",
+                "publisher": "Open Active Community Group",            
+            },
+            "OpenActive-Vocabulary": {
+                "href": "https://www.openactive.io/ns/",
+                "title": "OpenActive Vocabulary",
+                "status": "CG-DRAFT",
+                "publisher": "Open Active Community Group",            
+            },
+            "Realtime-Paged-Data-Exchange": {
+                "href": "https://www.openactive.io/realtime-paged-data-exchange/",
+                "title": "Realtime Paged Data Exchange",
+                "status": "CG-DRAFT",
+                "publisher": "Open Active Community Group",            
+            }                           
+          }
+        };
+    </script>
+
+    <script src='https://www.openactive.io/respec/builds/respec-w3c-common.js' class='remove'></script>
+
+    <style>
+    table {border-collapse: collapse; border: 1px solid #bec9d9}
+    td, th {padding: 3px 0.5em; border-left:1px solid black; border-right: 1px solid black; border-bottom:1px solid #E2EDFE;}
+    tr th[colspan] {color: #005A9C; background-color: #FEEDE2; text-align: center}
+    th {color: #005A9C; background-color: #E2EDFE; font-weight: normal;border-bottom:1px solid #BEC9D9;}
+    tbody tr th {text-align: left;}
+    td.nb { font-size: smaller;}
+    .rec, .pr {color: #005A9C; background-color: #99EE99}
+    .ext {background-color: #FFFFFF}
+    .cr, .lcwd {color: #005A9C; background-color: #EEEE99}
+    .wd {color: #005A9C; background-color: #EE9999}
+    .ed, .fpwd  {color: #005A9C; background-color: #FF7777}
+    code {white-space: pre;}
+    </style>
+
+  </head>
+  <body >
+    <style>
+    html {
+      background-image: none !important;
+    }
+    body {
+      background: white top left fixed no-repeat !important;
+      background-size: 25px auto !important;
+      background-image: url('https://www.openactive.io/assets/openactive-label-editorsdraft.png') !important;
+    }
+    body.toc-sidebar #toc {
+      background-attachment: fixed !important;
+    }
+    h1 {
+      font-family: 'Open Sans',sans-serif !important;
+      font-weight: 300 !important;
+      color: #69b9ff !important;
+      font-size: 220%;
+    }
+    #toc {
+      padding-top: 0px !important;
+    }
+    .remove {
+      background-colour: yellow;
+    }
+    code {
+        color: #C83500;
+    }
+    </style>
+
+    <section id='abstract'>
+Opportunity data describes opportunities for people to be physically activity. The data includes 
+events, the locations in which they take place and descriptions of the physical activities that 
+will participants will engage in.
+
+Opportunity data can be published as open data, for anyone to access use and share. This allows the data 
+to be reused to create applications and services that can help people become more physically active.
+
+The <a href="http://www.w3.org/community/openactive/">Openactive Community Group</a> are developing 
+standards to support the publication and reuse of opportunity data. This primer demonstrates how to use 
+those standards to describe and publish a variety of different types of opportunity data.
+
+Where possible, this primer links back to the relevant definitions in the underlying standards. Nothing 
+in this primer overrides those normative definitions.
+    </section>
+
+    <section id="sotd">
+The [OpenActive Community Group](http://www.w3.org/community/openactive/) was 
+established with the objective of facilitating the sharing and use of 
+physical activity data. The group has so far produced several specifications that contribute 
+towards achieving this aim:
+
+* [Modelling Opportunity Data](https://www.openactive.io/modelling-opportunity-data/)
+* [Realtime Paged Data Exchange](https://www.openactive.io/realtime-paged-data-exchange/)
+
+This document serves as a primer for developers to help them understand how to use those 
+specifications to describe and publish different types of data.
+  </section>
+    
+
+<section id="conformance">
+This primer makes use of the compact IRI Syntax; please refer to the [Compact IRIs](http://www.w3.org/TR/json-ld/#compact-iris) from [[JSON-LD]].
+
+The following namespaces are used in this primer:
+
+<dl>
+<dt>`dc:`</dt>
+<dd>`http://purl.org/dc/terms/`</dd>
+<dt>`schema:`</dt>
+<dd>`http://schema.org/`</dd>
+<dt>`skos:`</dt>
+<dd>`http://www.w3.org/2004/02/skos/core#`</dd>
+<dt>`oa:`</dt>
+<dd>`https://www.openactive.io/ns/`</dd>
+</dl>
+
+</section>
+
+  <section>
+# Typographical Conventions   
+
+The following typographic conventions are used in this primer:
+
+<dl class="typography">
+<dt>`markup`</dt>
+<dd>Markup (elements, attributes, properties), machine processable values (string, characters, media types), property name, or a file name is in a monospace font.</dd>
+<dt>__*definition*__</dt>
+<dd>A definition of a term, to be used elsewhere in this document or other specifications, is in bold and italics.</dd>
+<dt>[hyperlink]()</dt>
+<dd>A hyperlink is underlined and in blue.</dd>
+<dt>[[reference]]()</dt>
+<dd>A document reference (normative or informative) is enclosed in square brackets and links to the references section.</dd>
+</dl>
+
+
+<div class="note">
+Notes are in light green boxes with a green left border and with a "Note" header in green. Notes are normative or informative depending on the whether they are in a normative or informative section, respectively.
+</div>
+<pre class="example">
+Examples are in light khaki boxes, with khaki left border, and with a 
+numbered "Example" header in khaki. Examples are always informative. 
+The content of the example is in monospace font and may be syntax colored.
+</pre>
+  </section>
+
+<section>
+# Overview
+
+## What is opportunity data?
+
+There are several different types of data that are relevant to describing physical activities.
+
+    <figure>
+      ![](images/opportunity-data.png)
+      <figcaption>Types of physical activity data</figcaption>
+    </figure>
+
+Opportunity data includes:
+
+* descriptions of [Physical Activities](https://www.openactive.io/modelling-opportunity-data/#physical-activities)
+* details of the [Places](https://www.openactive.io/modelling-opportunity-data/#places), e.g. the locations and venues at which activities or events takes place
+* the facilities available at those locations
+* descriptions of [Events](https://www.openactive.io/modelling-opportunity-data/#events) and [other opportunities](https://www.openactive.io/modelling-opportunity-data/#activity-opportunities) including information on when they will take place, restrictions on attendance, the [format of the event](https://www.openactive.io/modelling-opportunity-data/#programmes), etc
+* information about [the people or organisations that organise](https://www.openactive.io/modelling-opportunity-data/#organisers-persons-and-organizations-) an Event
+
+## What formats can be used to publish opportunity data? 
+
+The Modelling Opportunity Data ([Modelling-Opportunity-Data]) specification has been [designed to allow](https://www.openactive.io/modelling-opportunity-data/#be-agnostic-to-formats-and-apis) opportunity data to be published in a variety of formats. Data could be published as JSON, XML, RDF, or even CSV files.
+
+It is expected that the most commonly used format will be JSON. All of the examples in this document use [[JSON-LD]] syntax. JSON-LD provides a means of publishing data as simple 
+JSON documents but ensures that the terms used in the data are all linked to a standard, machine-readable definition. 
+
+This helps users of the data to be confident about the meaning of the individual fields in the data. This helps to simplify data integration.
+
+## What data standards are used to describe opportunity data?
+
+There are three standards that have been used to help define a common data model for opportunity data. These are:
+
+* [[SCHEMA-ORG]] which is a community-driven standard that supports publication of data to the web
+* [[SKOS]] which supports sharing of controlled vocabularies and taxonomies, e.g. the [activity lists used to describe Physical Activities](https://www.openactive.io/modelling-opportunity-data/#physical-activities)
+* [[Modelling-Opportunity-Data]] which describes how these standards can be combined with the custom terms defined in the [[OpenActive-Vocabulary]] to describe opportunity data
+
+## How can I validate my opportunity data?
+
+<div class="note">
+The OpenActive project and community group are planning to develop additional validation tools for developers. Links to those tools will be added in future drafts of this primer
+</div>
+
+Currently there are two tools that can help to validate opportunity data:
+
+* The [JSON-LD Playground](http://json-ld.org/playground/) provides a general purpose tool for validating [[JSON-LD]] documents
+* [OpenActive Validator](http://validator.openactive.io/) supports validation of APIs that conform to the [[Realtime-Paged-Data-Exchange]] specification   
+
+</section>
+      
+    <section>
+# Describing Opportunity Data
+
+The [[Modelling-Opportunity-Data]] specification defines a [data model for opportunity data](https://www.openactive.io/modelling-opportunity-data/#data-model). The 
+model provides a means for different platforms and applications to publish data in a consistent way. This makes it easier for users to work with data from multiple 
+publishers.
+
+The following sections each illustrate how a different aspect of the data model can be used to publish certain types of data. 
+
+<div class="note">
+<p>
+In the following sections all references to terms defined in other specifications have been qualified using their namespace prefix. This helps to highlight the 
+source vocabulary in which they are defined. The terms are also linked to their definitions.
+</p>
+<p>
+The examples in each section use [[JSON-LD]] syntax and make use of [the terms declared in the OpenActive Vocabulary](https://www.openactive.io/ns/#term-definitions). 
+This feature of [[JSON-LD]] removes the need to use explicit namespace prefixes.
+</p>
+</div>
+
+## How do you indicate that your data conforms to the specification?
+
+It is important to indicate to users of your data that your data conforms to the [[Modelling-Opportunity-Data]] specification. This is achieving by: 
+
+* ensuring that your JSON is a valid [[JSON-LD]] document, e.g. by validating it using a tool like the [JSON-LD Playground](http://json-ld.org/playground/)
+* declaring your use of the standard terms by adding a `@context` key to your JSON
+
+A [JSON-LD context](https://www.w3.org/TR/json-ld/#the-context) maps the terms used in a JSON document to their standard definitions. To indicate that your 
+data conforms to the [[Modelling-Opportunity-Data] specification, include a `@context` reference that refers to [our JSON-LD context](https://www.openactive.io/ns/oa.jsonld):
+
+<pre class="example" title="Adding a context"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  ...include rest of data here...
+}
+</code></pre>
+
+## Describing Events
+
+The following sections illustrate different aspects of describing [Events](https://www.openactive.io/modelling-opportunity-data/#events). For more information consult the 
+[Describing Events](https://www.openactive.io/modelling-opportunity-data/#describing-events-code-schema-event-code-) section of the data model.
+
+### How do you describe an session?
+
+The basic information required about a session is 
+
+* its name
+* a URL providing a link to a web page describing the session
+* the time at which the event will take place
+* an indication of the type of activity that will take place at an event
+* the location at which the event will take place
+
+The following example illustrates this basic usage:
+
+<pre class="example" title="Describing a session"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "name": "Tai chi Class",
+  "url": "http://www.example.org/events/1",
+  "startDate": "2017-03-22T20:00:00",
+  "activity": "Tai Chi",
+  "location": {
+    "type": "Place",
+    "name": "ExampleCo Gym",
+    "address": {
+      "type": "PostalAddress",
+      "streetAddress": "1 High Street",
+      "addressLocality": "Bristol",
+      "postalCode": "BS1 4SD"
+    }
+  }
+}
+</code>
+</pre>
+
+The `type` property indicates that the JSON is describing an [`Event`](https://www.openactive.io/modelling-opportunity-data/#describing-events-code-schema-event-code-) rather than 
+one of the other types of resource defined in the data model.
+
+This is a very basic session description. The following sections in this primer illustrate how to provide more detail. 
+
+### How do you describe when a session will take place?
+
+The example in the previous section illustrated how to the the [`schema:startDate`](https://schema.org/startDate) property to specify the starte 
+time of an event. The property value must be an [[ISO8601]] date or date time.
+
+It would be useful for participants to also how long the session will last. The [`schema:endDate`](https://schema.org/endDate) and [`schema:duration`](https://schema.org/duration) 
+properties allow this to be defined in two different ways.
+
+<pre class="example" title="Describing a session"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "name": "Tai chi Class",
+  "url": "http://www.example.org/events/1",
+  "startDate": "2017-03-22T20:00:00",
+  <strong>"endDate": "2017-03-22T21:00:00"</strong>,
+  <strong>"duration": "PT60M"</strong>,
+  "activity": "Tai Chi",
+  "location": {
+    "type": "Place",
+    "name": "ExampleCo Gym",
+    "address": {
+      "type": "PostalAddress",
+      "streetAddress": "1 High Street",
+      "addressLocality": "Bristol",
+      "postalCode": "BS1 4SD"
+    }
+  }
+}
+</code>
+</pre>
+
+Adding an [`schema:endDate`](https://schema.org/endDate) allows you to specify the exact end time of the session. The [`schema:duration`](https://schema.org/duration) allows the length 
+of the session to be defined using an [[ISO8601]] duration.
+
+While the duration can be calculated from a start and end time, or an end time from a start time and a duration, there are options to use both to convey more information. 
+
+For example if an data publisher includes both a start time AND an end time, then the duration property <em class="rfc2119">MAY</em> be used to specify the actual length of the 
+activity. 
+
+In the following example a gym class begins at 6pm and ends at 7pm. But the event involves a ten minute setup and tear down at the beginning and end of the session. In this case the duration of the activity is actually 40 minutes:
+
+<pre class="example" title="Using duration to illustrate length of activity"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "name": "Gym Class",
+  "url": "http://www.example.org/events/1",
+  <strong>"startDate": "2017-03-22T18:00:00"</strong>,
+  <strong>"endDate": "2017-03-22T19:00:00"</strong>,
+  <strong>"duration": "PT40M"</strong>,
+  "activity": "Gymnastics",
+  "location": {
+    "type": "Place",
+    "name": "ExampleCo Gym",
+    "address": {
+      "type": "PostalAddress",
+      "streetAddress": "1 High Street",
+      "addressLocality": "Bristol",
+      "postalCode": "BS1 4SD"
+    }
+  }
+}
+</code>
+</pre>
+
+### How can you provide a description of an event?
+
+The [`schema:description`](https://schema.org/description) property can be used to provide a short description of an event.
+
+<pre class="example" title="Describing a session"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "name": "Tai chi Class",
+  <strong>"description": "A tutored beginner's class that will involve demonstrates and a set of warm-up activities. Everyone welcome"</strong>,
+  "url": "http://www.example.org/events/1",
+  "startDate": "2017-03-22T20:00:00",
+  "activity": "Tai Chi",
+  "location": {
+    "type": "Place",
+    "name": "ExampleCo Gym",
+    "address": {
+      "type": "PostalAddress",
+      "streetAddress": "1 High Street",
+      "addressLocality": "Bristol",
+      "postalCode": "BS1 4SD"
+    }
+  }
+}
+</code>
+</pre>
+
+The description should be an overview of the event that provides more detail to attendees. The content may be reused in a number of different contexts, e.g. web and mobile applications. For this reason it should ideally not include any HTML markup, although applications <em class="rfc2119">MAY</em> include markup, e.g. to link to additional material.
+
+### What information is useful to include in a session description?
+
+The [`schema:description`](https://schema.org/description) field supports event organisers in providing a free-text description of their event. A good Event description 
+will include sufficient detail that will help participants understand what the event will involve. For example it might be useful to include:
+
+* a description of how the event will be run
+* the types of people who are or will be attending the event
+* information on the event organiser
+* notes on any equipment required
+* suggested apparel, e.g. footwear, kit, etc
+
+The [[Modelling-Opportunity-Data]] specification provides additional ways to describe events using more structured data. This includes:
+
+* providing photos of an event, so participants can see what might be involved
+* adding categories to describe an event, e.g. its intensity
+* describing the suitability of an event for different types of participants
+* information on the format of an event, e.g. does it follow a branded programme?
+* adding descriptions of the event organisers and any contributors involved in running the event
+
+The following sections cover those aspects in more detail.
+
+### How do you describe the physical activities take will place during a session?
+
+The physical activity that will take place at an event are described using the [`oa:activity`](https://www.openactive.io/ns/#activity) property:
+
+<pre class="example" title="Adding an activity"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "name": "Tai chi Class",
+  <strong>"activity": "Tai Chi"</strong>,
+}
+</code>
+</pre>
+
+The name of the activity is provided as the value for the property. Applications may allow event organisers to enter their own activity names or 
+instead require them to select names from [a standard list of activities](https://www.openactive.io/modelling-opportunity-data/#physical-activities).
+
+<div class="note">
+The OpenActive Community Group are working on a roadmap to develop a standardised list of activities for the sector. In addition to this, organisers that 
+are already curating activity lists are encouraged to publish them as open data.
+</div>
+
+### What if a session will involve multiple activities?
+
+The value of [`oa:activity`](https://www.openactive.io/ns/#activity) property can be a list of activity names, specified as a JSON array in the following example:
+
+<pre class="example" title="Adding multiple activities"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "name": "General fitness class",
+  <strong>"activity": ["Aerobics", "Weight Lifting", "Yoga"]</strong>
+}
+</code>
+</pre>
+
+### How can you refer to activities from a standard activity list?
+
+The Physical Activities used to describe an event may be drawn from a standard Activity List. 
+
+In this case it is useful to make this explicit in the opportunity data. In the following example the Physical Activity 
+associated with the Event is expressed as a structured value (a JSON object). This allows more information to be provided, including not just its name, but 
+also its identifier, and the identifier of the Activity List from which it has been drawn:
+
+<pre class="example" title="Using activities from an Activity List"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "url": "http://www.example.org/events/1",
+  "name": "Tai chi Class",
+  "description": "A tai chi class intended for beginners",
+  "startDate": "2017-03-22T20:00:00-05:00",
+  "duration": "PT60M",
+  "activity": {
+    "id": "http://example.org/activity-list#tai-chi",
+    "type": "Concept",
+    "prefLabel": "Tai chi",
+    "altLabel": "Tai-chi",
+    "inScheme": "http://example.org/activity-list"
+  }
+}
+</code>
+</pre>
+
+An application that uses this data may then access the activity list to find out more information about the event. For example whether there are broader terms 
+(e.g. "Martial Arts" or "Combat") that could be used to drive discovery and recommendations of events to potential participants.
+
+### How can you add a programme to an event?
+
+Events are often organised and run in a variety of ways. These different formats are often associated with specific branding, e.g. "Les Mills BodyPump" or "Back to Netball". 
+These are referred to a [Programmes](https://www.openactive.io/modelling-opportunity-data/#programmes) in the [[Modelling-Opportunity-Data]] specification. 
+
+Events can be associated with a Programme using the [`oa:programme`](https://www.openactive.io/ns/#programme) property. In its simplest form this allows the name of a Programme be provided 
+as part of the event description:
+
+<pre class="example" title="Adding a Programme"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "url": "http://www.example.org/events/1",
+  "name": "Rowing Class",
+  "description": "A rowing class for beginners",
+  "startDate": "2017-04-01T08:00:00",
+  "duration": "PT60M"
+  <strong>"programme": "Learn to Row"</strong>
+}
+</code>
+</pre>
+
+If more information about the Programme is available, then this can be included by describing the Programme in a more structured way:
+
+<pre class="example" title="Supplying more information about a Programme"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "url": "http://www.example.org/events/1",
+  "name": "Rowing Class",
+  "description": "A rowing class for beginners",
+  "startDate": "2017-04-01T08:00:00",
+  "duration": "PT60M",
+  "category": ["Beginner"],
+  "programme": {
+    "name": "Learn to Row",
+    "url": "https://www.britishrowing.org/go-rowing/learn-to-row/",
+    "description": "Getting started in rowing couldn’t be easier!"
+  }
+}
+</code>
+</pre>
+
+### How can you describe suitability of events?
+
+There are a variety of ways of expressing that an Event is suitable for specific audiences. This includes describing that an event is:
+
+* suited for a specific age range
+* suited for people within a specific height or weight rage
+* restricted to a male, female or mixed audience
+
+The following example illustrates how to indicate that an event it targeted as a specific age range (over 60s) but is open to a mixed 
+audience:
+
+<pre class="example" title="Age and gender example"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "url": "http://www.example.org/events/1",
+  "name": "Tai chi Class",
+  "description": "A tai chi class intended for beginners",
+  "startDate": "2017-03-22T20:00:00-05:00",
+  "duration": "PT60M",
+  <strong>"ageRange": "60"</strong>,
+  <strong>"genderRestriction": "mixed"</strong>
+}
+</code>
+</pre>
+
+An Event involving a climbing activity might be limited to people within a specific age or weight range. The following example describes na 
+event that is suitable for anyone who are 10 or over, but expresses specific height and weight ranges:
+ 
+<pre class="example" title="Age and gender example"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "url": "http://www.example.org/events/1",
+  "name": "Climbing adventure",
+  "description": "A tree top climbing adventure",
+  "startDate": "2017-03-22T10:00:00",
+  "duration": "PT60M",
+  "ageRange": "10",
+  "genderRestriction": "mixed"
+  <strong>"heightRange": "1.4"</strong>,
+  <strong>"weightRange": "45-125"</strong>
+}
+</code>
+</pre>
+
+### How are organisers described?
+
+The organisers of an event might be an organisation such as a club, or it might be an individual trainer. Both of these can be described using terms 
+from the specification.
+
+The following example illustrates how to describe that the organiser of an event is a club (a [`schema:Organization`](https://schema.org/Organization)):
+
+<pre class="example" title="Specifying an organiser"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "url": "http://www.example.org/events/1",
+  "name": "Tai chi Class",
+  "description": "A tai chi class intended for beginners",
+  "startDate": "2017-03-22T20:00:00-05:00",
+  "duration": "PT60M",
+  <strong>
+  "organizer": {
+    "type": "Organization",
+    "url": "http://example.org/clubs/1",
+    "name": "Bath Tai Chi Club"    
+  }
+  </strong>
+}
+</code>
+</pre>
+
+People can be described using the [`schema:Person`](https://schema.org/Person) type and then associated with an event as either an organiser (as above) or 
+a contributor. The contributor property allows individual trainers or instructors to be associated with an event alongside an organiser
+
+<pre class="example" title="Adding a trainer"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "url": "http://www.example.org/events/1",
+  "name": "Tai chi Class",
+  "description": "A tai chi class intended for beginners",
+  "startDate": "2017-03-22T20:00:00-05:00",
+  "duration": "PT60M",
+  "organizer": {
+    "type": "Organization",
+    "url": "http://example.org/clubs/1",
+    "name": "Bath Tai Chi Club"    
+  }
+  <strong>
+  "contributor": {
+    "type": "Person",
+    "name": "John Smith",
+    "description": "Experienced Tai chi instructor with 10 years of experience"    
+  }
+  </strong>
+}
+</code>
+</pre>
+
+<div class="note">
+<p>__Applications should not publish personal data without permission__</p>
+<p>
+However applications should respect privacy and data protection laws and must not publish data about individuals without their consent.
+</p>
+<p>
+The ability to publish this type of data has been included because event organisers often choose to publicly 
+share some information about themselves to help advertise an event. E.g. their name and some background on 
+their qualifications or experience. But this information should not be published as open data without getting the 
+consent of the individual concerned.
+</p>
+</div>
+
+### How can an event be categorised to support discovery?
+
+The [`oa:category`](https://www.openactive.io/ns/#category) property can be used to tag an event with additional key words. These tags can be used to help 
+drive discovery interfaces, e.g. to allow users to browse by specific tags, or just to add more information about the event.
+
+In the following example the property is used to tag an event as being a low intensity session suitable for beginners:
+
+<pre class="example" title="Tagging an Event"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "url": "http://www.example.org/events/1",
+  "name": "Tai chi Class",
+  "description": "A tai chi class intended for beginners",
+  "startDate": "2017-03-22T20:00:00-05:00",
+  "duration": "PT60M",
+  "category": ["Beginner", "Low intensity"]
+}
+</code>
+</pre>
+
+### How do you add a location to an event?
+
+Locations are added to events using the [`schema:location`](https://schema.org/location) property. The recommendation in the [[Modelling-Opportunity-Data]] specification is that 
+applications should provide as much information about the Place in which the event will take place as possible. For example, the name and address for the venue:
+
+<pre class="example" title="Adding a location"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "name": "Tai chi Class",
+  "url": "http://www.example.org/events/1",
+  "startDate": "2017-03-22T20:00:00",
+  "activity": "Tai Chi",
+  <strong>
+  "location": {
+    "type": "Place",
+    "name": "ExampleCo Gym",
+    "address": {
+      "type": "PostalAddress",
+      "streetAddress": "1 High Street",
+      "addressLocality": "Bristol",
+      "postalCode": "BS1 4SD"
+    }
+  }
+  </strong>
+}
+</code>
+</pre>
+
+The specification provides some flexibility to accommodate the variety of ways that systems index and collect location information. For example it is permitted to only specify an 
+address for a location:
+
+<pre class="example" title="Adding an address"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "name": "Tai chi Class",
+  "url": "http://www.example.org/events/1",
+  "startDate": "2017-03-22T20:00:00",
+  "activity": "Tai Chi",
+  <strong>
+  "location": {
+    "type": "PostalAddress",
+    "streetAddress": "1 High Street",
+    "addressLocality": "Bristol",
+    "postalCode": "BS1 4SD"
+  }
+  </strong>
+}
+</code>
+</pre>
+
+The location property can also be used to provide just the name of a location, e.g. "Bath Leisure Centre".
+
+However this means that participants have less information about where the event will be running. Applications should instead include a more complete Place description as described 
+in the following section.
+
+### How are recurring events described?
+
+<div class="note">
+This section is contingent on an open issue so may be subsequent to change. There is a discussion under way in the Schema.org community to extend their model to cover recurring events. The [proposal](https://github.com/schemaorg/schemaorg/issues/1457#issuecomment-286423792) is to add a new `schema:eventSchedule` property that will refer to a [recurrence rule](http://www.kanzaki.com/docs/ical/rrule.html) as defined in the iCalendar specification. The assumption is that this proposal will be expected and the specification will then recommend use of the `schema:eventSchedule` property. The following section is written on that basis but is subsequent to change.
+</div>
+
+Some systems allow organisers to set up a schedule of events. The [[Modelling-Opportunity-Data]] specification allows these schedules to be shared as open data, as well as Events that 
+occur at a specific date and time. Sharing those events allows aggregators to more efficiently collect data on events, rather harvesting (potentially endless) lists of individual 
+events.
+
+The following example illustrates basic usage of the proposed [`schema:eventSchedule`](https://github.com/schemaorg/schemaorg/issues/1457#issuecomment-286423792) property. The data describes 
+a Tai Chi class that occurs every Wednesday at 7pm:
+
+<pre class="example" title="Adding an event schedule"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "url": "http://www.example.org/events/1",
+  "name": "Tai chi Class",
+  "description": "A tai chi class intended for beginners",
+  "duration": "PT60M",
+  "eventSchedule": {
+     "type": "Schedule",
+     "startDate": "2017-01-01",
+     "endDate": "2017-12-31",
+     "frequency": "weekly",
+     "byDay": "http://schema.org/Wednesday",
+     "startTime": "19:00",
+     "endTime": "20:00"
+  }  
+}
+</code>
+</pre>
+
+## Describing Locations and Facilities
+
+The following sections provide examples of describing the [Places](https://www.openactive.io/modelling-opportunity-data/#places) in which events take place, using the 
+[location aspects of the data model](https://www.openactive.io/modelling-opportunity-data/#describing-locations-code-schema-place-code-and-code-schema-postaladdress-code-).
+
+### How do you add a geographic location?
+
+The section on [adding a location to an event](#how-do-you-add-a-location-to-an-event-) introduces the basic uses of the [`schema:location`](https://schema.org/location) property. 
+In addition to providing an address, some systems may also hold the geographic coordinates of a location. 
+
+<pre class="example" title="Locating a leisure centre"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Place",
+  "url": "http://www.better.org.uk/leisure-centre/banes/bath-sports-and-leisure-centre",
+  "name": "Bath Sports and Leisure Centre",
+  "address": {
+      "type": "PostalAddress",
+      "streetAddress": "North Parade Road",
+      "addressLocality": "Bath",
+      "region": "Somerset",
+      "postalCode": "BA2 4ET"
+  },
+  <strong>
+  "geo": {
+    "latitude": "51.3816123",
+    "longitude": "-2.3544367"
+  }
+  </strong>
+}
+</code></pre>
+
+### How do you add contact details?
+
+Contact details for a Place can be expressed using the [`schema:telephone`](https://schema.org/telephone) and [`schema:faxNumber`](https://schema.org/faxNumber) properties, as shown 
+in the following example:
+
+<pre class="example" title="Adding contact details to a Place"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Place",
+  "url": "http://www.better.org.uk/leisure-centre/banes/bath-sports-and-leisure-centre",
+  "name": "Bath Sports and Leisure Centre",
+  "address": {
+      "type": "PostalAddress",
+      "streetAddress": "North Parade Road",
+      "addressLocality": "Bath",
+      "region": "Somerset",
+      "postalCode": "BA2 4ET"
+  },
+  <strong>
+  "telephone": "+44 (0)1225 486905",
+  "faxNumber": "+44 (0)1225 486906"  
+  </strong>
+}
+</code></pre>
+
+The [[Modelling-Opportunity-Data]] specification doesn't provide support for providing contact details for an Event, although these could be provided to users as information about 
+the event at its public URL. 
+
+Contact information is only currently supported for Place (as shown above) or for individual people or organisations, via the [`schema:contactPoint`](https://schema.org/contactPoint) property.
+
+### How do you add opening times?
+
+The opening times for a Place can be added using the [`schema:openingHoursSpecification`](https://schema.org/openingHoursSpecification) property. This property refers to a structured value known as an [`schema:OpeningHoursSpecification`](https://schema.org/OpeningHoursSpecification). 
+
+The following example illustrates how to state that a leisure centre is open from 9am to 5pm every day of the week:
+
+<pre class="example" title="Listing opening hours"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Place",
+  "url": "http://www.better.org.uk/leisure-centre/banes/bath-sports-and-leisure-centre",
+  "name": "Bath Sports and Leisure Centre",
+  "address": {
+      "type": "PostalAddress",
+      "streetAddress": "North Parade Road",
+      "addressLocality": "Bath",
+      "region": "Somerset",
+      "postalCode": "BA2 4ET"
+  },
+  <strong>
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes":  "17:00:00",
+      "dayOfWeek": "http://schema.org/Sunday",
+      "opens":  "09:00:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes": "17:00:00" ,
+      "dayOfWeek": "http://schema.org/Saturday",
+      "opens": "09:00:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes":  "17:00:00",
+      "dayOfWeek": "http://schema.org/Thursday",
+      "opens": "09:00:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes": "17:00:00",
+      "dayOfWeek": "http://schema.org/Tuesday",
+      "opens": "09:00:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes": "17:00:00",
+      "dayOfWeek":  "http://schema.org/Friday",
+      "opens": "09:00:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes": "17:00:00",
+      "dayOfWeek": "http://schema.org/Monday",
+      "opens": "09:00:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "closes": "17:00:00",
+      "dayOfWeek":  "http://schema.org/Wednesday",
+      "opens": "09:00:00"
+    }
+  ]}
+  </strong>
+}
+</code></pre>
+
+In the above example the property value is an array of opening times. 
+
+The Schema.org definition of [`schema:OpeningHoursSpecification`](https://schema.org/OpeningHoursSpecification) includes more detail and examples of its usage.
+
+### How do you describe the facilities at a location?
+
+A Place, such as a Leisure Centre, might include facilities such as a football pitch, swimming pool, etc. To help distinguish between a Place and a facility, Schema.org defines some additional types, e.g. a [CivicStructure](https://schema.org/CivicStructure) or a [SportsActivityLocation](https://schema.org/SportsActivityLocation). 
+
+The relationship between a Place and its facilities can be expressed using the containment properties ([`schema:containedInPlace`](https://schema.org/containedInPlace) and [`schema:containsPlace`](https://schema.org/containsPlace)). 
+
+The following example shows how to describe that a Leisure Centre includes a gym. Note that the gym has a different type:
+
+<pre class="example" title="Describing facilities at a leisure centre"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Place",
+  "url": "http://www.better.org.uk/leisure-centre/banes/bath-sports-and-leisure-centre",
+  "name": "Bath Sports and Leisure Centre",
+  "address": {
+      "type": "PostalAddress",
+      "streetAddress": "North Parade Road",
+      "addressLocality": "Bath",
+      "region": "Somerset",
+      "postalCode": "BA2 4ET"
+  },
+  <strong>
+  "containsPlace": {
+    "type": "SportsActivityLocation",
+    "url": "http://www.better.org.uk/leisure-centre/banes/bath-sports-and-leisure-centre/gym",
+    "name": "Gym"
+  }
+  </strong>    
+}
+</code></pre>
+
+This allows Events to be associated with a more specific location within a larger venue. In the following example, a Tai Chi class is described as occuring in a Sports Hall within a Leisure Centre:
+
+<pre class="example" title="Associating an event with a facility in a venue"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "name": "Tai chi Class",
+  "url": "http://www.example.org/events/1",
+  "startDate": "2017-03-22T20:00:00",
+  "activity": "Tai Chi",
+  "location": {
+    "type": "SportsActivityLocation",
+    "name": "Main Sports Hall",
+    "containedIn": {
+      "type": "Place",
+      "url": "http://www.better.org.uk/leisure-centre/banes/bath-sports-and-leisure-centre",
+      "name": "Bath Sports and Leisure Centre",
+      "address": {
+        "type": "PostalAddress",
+        "streetAddress": "North Parade Road",
+        "addressLocality": "Bath",
+        "region": "Somerset",
+        "postalCode": "BA2 4ET"
+      }
+    }
+  }
+  </strong>
+}
+</code>
+</pre>
+
+
+Because a facility is treated as a Place, it can be described using the other properties shown elsewhere in this primer. So, for example the gym may have different opening hours to the rest of the leisure centre. 
+
+### How do you describe walking trails and other opportunities at a location?
+
+Not all opportunities to be physically activity are organised Events. Some opportunities are self-directed for example walking routes or mountain bike trails. These are referred to as [Activity Opportunities](https://www.openactive.io/modelling-opportunity-data/#activity-opportunities). 
+
+The [data model](https://www.openactive.io/modelling-opportunity-data/#describing-activity-opportunities-code-oa-activityopportunity-code-) explains that these types of opportunity are similar to events except:
+
+* they have a specific type, [`oa:ActivityOpportunity`](https://www.openactive.io/ns/#ActivityOpportunity)
+* do not have a schedule, start or end time (but may have a duration)
+
+The following example describes a 4 hour walking trail around Bath organised by the National Trust:
+
+<pre class="example" title="Descring a walking trail"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "ActivityOpportunity",
+  "name": "Bath Skyline Walk",
+  "description": "Savour the magnificent views down into the picturesque World Heritage City of Bath on our most popular walking trail",
+  "url": "https://www.nationaltrust.org.uk/bath-skyline/trails/bath-skyline-walk",
+  "duration": "PT4H",
+  "activity": "Walking",  
+  "category": ["Moderate", "Dog-friendly"],
+  "image": "https://www.nationaltrust.org.uk/images/1431731033620-mapbathskyline.jpg",
+  "location": {
+    "type": "Place",
+    "name": "Bathwick Hill",
+    "geo": {
+      "latitude": "51.380837",
+      "longitude": "-2.3462374"
+    }
+  },
+  "organiser": {
+    "type": "Organization",
+    "name": "National Trust"
+  }
+  </strong>
+}
+</code>
+</pre>
+
+## Describing Activity Lists
+
+This section describes how to publish data about [Physical Activities](https://www.openactive.io/modelling-opportunity-data/#physical-activities) using [described using SKOS](https://www.openactive.io/modelling-opportunity-data/#describing-activity-lists-code-skos-conceptscheme-code-and-physical-activity-code-skos-concept-code-)
+
+### Describing a simple list of activities
+
+An Activity List provides descriptions of physical activities. The simplest form of activity list is just a list of activity names as shown below:
+
+<pre class="example" title="A simple activity list"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "ConceptScheme",
+  "url": "http://www.example.org/activity-list",
+  "title": "Example Activity List",
+  "description": "An example activity list",
+  "concepts": [{
+    "type": "Concept",
+    "prefLabel": "Karate",
+  }, {
+    "type": "Concept",
+    "prefLabel": "Tai Chi",
+  }]
+}
+</code>
+</pre>
+
+An Activity List should have a title, a description and a list of concepts. Each concept in the list should have a [`skos:prefLabel`](https://www.w3.org/2009/08/skos-reference/skos.html#prefLabel) that provides the canonical name for the activity.
+
+When publishing an activity list it should also have a licence that describes how the list can be used. This is described in [Publshing Activity Lists as open data](http://localhost:4000/EditorsDraft/index.html#how-can-activity-lists-be-published-using-json-ld-)
+
+### Adding alternate names for an activity
+
+There may be several ways to refer to a physical activity. This includes alternate names or spellings of the activity. Providing these alternative labels can help applications create better user interfaces by guiding them towards using a standard set of activity names.
+
+The following example shows how to add an [`skos:altLabel`](https://www.w3.org/2009/08/skos-reference/skos.html#altLabel) property to an activity. In this case a simple spelling variant:
+
+<pre class="example" title="Adding an alternative name for an activity"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "ConceptScheme",
+  "url": "http://www.example.org/activity-list",
+  "title": "Example Activity List",
+  "description": "An example activity list",
+  "concepts": [{
+    "type": "Concept",
+    "prefLabel": "Tai Chi",
+    <strong>"altLabel": "Tai-chi"</strong>
+  }]
+}
+</code>
+</pre>
+
+Any number of alternative labels can be added to an activity by providing a list of values:
+
+<pre class="example" title="Adding multiple names for an activity"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "ConceptScheme",
+  "url": "http://www.example.org/activity-list",
+  "title": "Example Activity List",
+  "description": "An example activity list",
+  "concepts": [{
+    "type": "Concept",
+    "prefLabel": "Tai Chi",
+    <strong>"altLabel": ["Tai-chi", "Tai Chi Chuan"]</strong>
+  }]
+}
+</code>
+</pre>
+
+### Describing hierarchical lists of activities
+
+More complex activity lists describe a hierarchy of physical activities. For example Judo, Karate and Kendo are all examples of a broader category of Martial Arts.
+This is demonstrated in the following example:
+
+<pre class="example" title="Describing a hierarchical activity list"><code>
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "ConceptScheme",
+  "url": "http://www.example.org/activity-list",
+  "title": "Activity List",
+  "description": "An example activity list",
+  "concepts": [{
+    "type": "Concept",
+    "prefLabel": "Martial Arts",
+    "narrower": [{
+      "type": "Concept",
+      "prefLabel": "Judo"
+    },
+    {
+      "type": "Concept",
+      "prefLabel": "Kendo"
+    },
+    {
+      "type": "Concept",
+      "prefLabel": "Karate"
+    }]    
+  }]
+}
+</code>
+</pre>
+
+    </section>
+
+    <section>
+# Publishing opportunity data
+
+This section provides some advice on how to publish opportunity data for others to reuse.
+
+### How can activity lists be published using JSON-LD?
+
+Activity Lists can be published as open data by publishing a JSON-LD file that developers can download and use within their application.
+
+The data could be added as a download that is made available from an "open data" page on your organisations website.
+
+Ensure that the activity list has a [`license`](http://purl.org/dc/terms/license) property that refers to a standard open data licence so that 
+users can be certain that they have rights to use the data.
+
+### How can session data be published via an API?
+
+The [Realtime Paged Data Exchange](https://www.openactive.io/realtime-paged-data-exchange/) specification defines an API that allows opportunity data 
+to be published in a way that can be easily harvested by reusers.
+
+The API does not define how opportunity data should be structured. It only defines [a generic data structure](https://www.openactive.io/realtime-paged-data-exchange/#-data-) which 
+can accept any JSON object.
+
+That object can conform to the JSON-LD structure described in this primer.
+
+For more detail, consult the OpenActive website which provides more documentation on the process of [opening your data](https://www.openactive.io/technology.html) using this API.
+
+### How can opportunity data be embedded in web pages?
+
+Opportunity data can be embedded in web pages to make it acccessible to search engines and similar web crawlers. JSON-LD can be embedded in web pages using a script tag with a type 
+of `application/ld+json`:
+
+<pre class="example" title="Embedding JSON"><code>
+&lt;script type="application/ld+json">
+{
+  "@context": "https://www.openactive.io/ns/oa.jsonld",
+  "type": "Event",
+  "name": "Tai chi Class",
+  "url": "http://www.example.org/events/1",
+  "startDate": "2017-03-22T20:00:00",
+  "activity": "Tai Chi",
+  "location": {
+    "type": "Place",
+    "name": "ExampleCo Gym",
+    "address": {
+      "type": "PostalAddress",
+      "streetAddress": "1 High Street",
+      "addressLocality": "Bristol",
+      "postalCode": "BS1 4SD"
+    }
+  }
+}
+&lt;/script> 
+</code></script>
+
+Using this method a machine-readable description of an Event can be directly included within the web page for the event.
+
+    </section>
+  
+    <section class='appendix'>
+    Acknowledgements
+    ================
+
+    The editors thank [all members](http://www.w3.org/community/openactive/participants) of the Openactive CG for contributions of various kinds.
+    </section>
+  </body>
+</html>
