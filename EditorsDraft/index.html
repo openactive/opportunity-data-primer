@@ -77,7 +77,7 @@
           wg:           "Openactive Community Group",
 
           // URI of the public WG page
-          wgURI:        "http://www.w3.org/community/openactive/",
+          wgURI:        "https://www.w3.org/community/openactive/",
 
           // name (with the @w3c.org) of the public mailing to which comments are due
           wgPublicList: "public-openactive",
@@ -87,7 +87,6 @@
           // This is important for Rec-track documents, do not copy a patent URI from a random
           // document unless you know what you're doing. If in doubt ask your friendly neighbourhood
           // Team Contact.
-          wgPatentURI:  "",
           maxTocLevel: 4,
           preProcess: [ ] ,
           alternateFormats: [ {uri: "diff-previous.html", label: "diff to previous version"} ],
@@ -138,7 +137,10 @@
         };
     </script>
 
-    <script src='https://www.openactive.io/respec/builds/respec-w3c-common.js' class='remove'></script>
+    <script 
+     src='https://www.w3.org/Tools/respec/respec-w3c-common' 
+     class='remove'></script>
+
 
     <style>
     table {border-collapse: collapse; border: 1px solid #bec9d9}
@@ -153,20 +155,16 @@
     .wd {color: #005A9C; background-color: #EE9999}
     .ed, .fpwd  {color: #005A9C; background-color: #FF7777}
     code {white-space: pre;}
-    </style>
-
-  </head>
-  <body >
-    <style>
+    
     html {
       background-image: none !important;
     }
     body {
       background: white top left fixed no-repeat !important;
-      background-size: 25px auto !important;
       background-image: url('https://www.openactive.io/assets/openactive-label-editorsdraft.png') !important;
     }
     body.toc-sidebar #toc {
+      background-size: 25px auto !important;
       background-attachment: fixed !important;
     }
     h1 {
@@ -186,6 +184,8 @@
     }
     </style>
 
+  </head>
+  <body>
     <section id='abstract'>
 Opportunity data describes opportunities for people to be physically activity. The data includes 
 events, the locations in which they take place and descriptions of the physical activities that 
@@ -339,7 +339,7 @@ It is important to indicate to users of your data that your data conforms to the
 * declaring your use of the standard terms by adding a `@context` key to your JSON
 
 A [JSON-LD context](https://www.w3.org/TR/json-ld/#the-context) maps the terms used in a JSON document to their standard definitions. To indicate that your 
-data conforms to the [[Modelling-Opportunity-Data] specification, include a `@context` reference that refers to [our JSON-LD context](https://www.openactive.io/ns/oa.jsonld):
+data conforms to the [[Modelling-Opportunity-Data]] specification, include a `@context` reference that refers to [our JSON-LD context](https://www.openactive.io/ns/oa.jsonld):
 
 <pre class="example" title="Adding a context"><code>
 {

@@ -1,0 +1,12 @@
+sudo: false
+language: node_js
+node_js:
+  - "6"
+script: bash ./deploy.sh
+branches:
+  only:
+  - master
+env:
+  global:
+    - GH_REF: github.com/openactive/opportunity-data-primer.git
+    - secure: "CDmiN18zOu10fUcAfU4z1kMdJINHM9HlnRkb1oc0jF2H4p7FtkeeqftSwcZtfF9+v90YKpJB83QMqmuX2CyLIh+Vb/xtomNLCIpQExcHsDFL5xNdFDi4+ydspeejyyfzOUv2YnPoYkqUczA2F7pxHgEMq9utobDTBbQovomlJanmnbYy32XgCbYX0/YtWxZ5fEs/FLNNvscnpjXK6bpcvVQFbmz0m5BMohIfFVAiueActW4uQ2HrIJMidINpPRj9UVlpBRVsrRweZpINmhuHd71314R02uUq+/FMVql9jwjqffqA/mXw3lbJaIidkMH8svYsKJVdYEOGkVcJnLEzTCFTUpNUd/RtIBMGDu9O/eJFfKlH4hZhvDgwej6a3SoXR63ldh+8iw7YGo0kOcEhSIiHHQcunkKxbx9iZO/u4gIFnp/2JzyiLf4ATQ/8rDDcB4jU+556I6wtQvgkOHoG5PdQqEaJINbGkJRGEHYIFg8T+k5QwPdY6GlQauq6TbslKlyjMnItbSk7iouizY1AKhpnlebhFBHKeILhWtoaq7yhzzsV+uUjaanKmlKWjneiQKyFVcDqxHCQYOgDkYU6iEZuC55BCK+hzgzgdQwrzNnHTOo9ep9HTg+/+p4N0AaUaPrC4jkbFwHMATvHUU+e7qDzs7BJ2gSe+QUrRFU3z10="
