@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" typeof="bibo:Document " prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta lang="" property="dc:language" content="en">
+  <style>
+    /*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+    .hljs {
+      display: block;
+      overflow-x: auto;
+      padding: 0.5em;
+      color: #333;
+      background: #f8f8f8;
+    }
+
+    .hljs-comment,
+    .hljs-quote {
+      color: #998;
+      font-style: italic;
+    }
+
+    .hljs-keyword,
+    .hljs-selector-tag,
+    .hljs-subst {
+      color: #333;
+      font-weight: bold;
+    }
+
+    .hljs-number,
+    .hljs-literal,
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-tag .hljs-attr {
+      color: #008080;
+    }
+
+    .hljs-string,
+    .hljs-doctag {
+      color: #d14;
+    }
+
+    .hljs-title,
+    .hljs-section,
+    .hljs-selector-id {
+      color: #900;
+      font-weight: bold;
+    }
+
+    .hljs-subst {
+      font-weight: normal;
+    }
+
+    .hljs-type,
+    .hljs-class .hljs-title {
+      color: #458;
+      font-weight: bold;
+    }
+
+    .hljs-tag,
+    .hljs-name,
+    .hljs-attribute {
+      color: #000080;
+      font-weight: normal;
+    }
+
+    .hljs-regexp,
+    .hljs-link {
+      color: #009926;
+    }
+
+    .hljs-symbol,
+    .hljs-bullet {
+      color: #990073;
+    }
+
+    .hljs-built_in,
+    .hljs-builtin-name {
+      color: #0086b3;
+    }
+
+    .hljs-meta {
+      color: #999;
+      font-weight: bold;
+    }
+
+    .hljs-deletion {
+      background: #fdd;
+    }
+
+    .hljs-addition {
+      background: #dfd;
+    }
+
+    .hljs-emphasis {
+      font-style: italic;
+    }
+
+    .hljs-strong {
+      font-weight: bold;
+    }
+  </style>
+  <style>
+    /* --- EXAMPLES --- */
+
+    div.example-title {
+      min-width: 7.5em;
+      color: #b9ab2d;
+    }
+
+    div.example-title span {
+      text-transform: uppercase;
+    }
+
+    aside.example,
+    div.example,
+    div.illegal-example {
+      padding: 0.5em;
+      margin: 1em 0;
+      position: relative;
+      clear: both;
+    }
+
+    div.illegal-example {
+      color: red
+    }
+
+    div.illegal-example p {
+      color: black
+    }
+
+    aside.example,
+    div.example {
+      padding: .5em;
+      border-left-width: .5em;
+      border-left-style: solid;
+      border-color: #e0cb52;
+      background: #fcfaee;
+    }
+
+    aside.example div.example {
+      border-left-width: .1em;
+      border-color: #999;
+      background: #fff;
+    }
+
+    aside.example div.example div.example-title {
+      color: #999;
+    }
+  </style>
+  <style>
+    /* --- ISSUES/NOTES --- */
+
+    div.issue-title,
+    div.note-title,
+    div.ednote-title,
+    div.warning-title {
+      padding-right: 1em;
+      min-width: 7.5em;
+      color: #b9ab2d;
+    }
+
+    div.issue-title {
+      color: #e05252;
+    }
+
+    div.note-title,
+    div.ednote-title {
+      color: #2b2;
+    }
+
+    div.warning-title {
+      color: #f22;
+    }
+
+    div.issue-title span,
+    div.note-title span,
+    div.ednote-title span,
+    div.warning-title span {
+      text-transform: uppercase;
+    }
+
+    div.note,
+    div.issue,
+    div.ednote,
+    div.warning {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    .note>p:first-child,
+    .ednote>p:first-child,
+    .issue>p:first-child,
+    .warning>p:first-child {
+      margin-top: 0
+    }
+
+    .issue,
+    .note,
+    .ednote,
+    .warning {
+      padding: .5em;
+      border-left-width: .5em;
+      border-left-style: solid;
+    }
+
+    div.issue,
+    div.note,
+    div.ednote,
+    div.warning {
+      padding: 1em 1.2em 0.5em;
+      margin: 1em 0;
+      position: relative;
+      clear: both;
+    }
+
+    span.note,
+    span.ednote,
+    span.issue,
+    span.warning {
+      padding: .1em .5em .15em;
+    }
+
+    .issue {
+      border-color: #e05252;
+      background: #fbe9e9;
+    }
+
+    .note,
+    .ednote {
+      border-color: #52e052;
+      background: #e9fbe9;
+    }
+
+    .warning {
+      border-color: #f11;
+      border-width: .2em;
+      border-style: solid;
+      background: #fbe9e9;
+    }
+
+    .warning-title:before {
+      content: "⚠";
+      /*U+26A0 WARNING SIGN*/
+      font-size: 3em;
+      float: left;
+      height: 100%;
+      padding-right: .3em;
+      vertical-align: top;
+      margin-top: -0.5em;
+    }
+
+    li.task-list-item {
+      list-style: none;
+    }
+
+    input.task-list-item-checkbox {
+      margin: 0 0.35em 0.25em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+
+  <title>Publishing Opportunity Data: A Primer</title>
+
+
+
+
+
+  <style>
+    table {
+      border-collapse: collapse;
+      border: 1px solid #bec9d9
+    }
+
+    td,
+    th {
+      padding: 3px 0.5em;
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+      border-bottom: 1px solid #E2EDFE;
+    }
+
+    tr th[colspan] {
+      color: #005A9C;
+      background-color: #FEEDE2;
+      text-align: center
+    }
+
+    th {
+      color: #005A9C;
+      background-color: #E2EDFE;
+      font-weight: normal;
+      border-bottom: 1px solid #BEC9D9;
+    }
+
+    tbody tr th {
+      text-align: left;
+    }
+
+    td.nb {
+      font-size: smaller;
+    }
+
+    .rec,
+    .pr {
+      color: #005A9C;
+      background-color: #99EE99
+    }
+
+    .ext {
+      background-color: #FFFFFF
+    }
+
+    .cr,
+    .lcwd {
+      color: #005A9C;
+      background-color: #EEEE99
+    }
+
+    .wd {
+      color: #005A9C;
+      background-color: #EE9999
+    }
+
+    .ed,
+    .fpwd {
+      color: #005A9C;
+      background-color: #FF7777
+    }
+
+    code {
+      white-space: pre;
+    }
+
+    html {
+      background-image: none !important;
+    }
+
+    body {
+      background: white top left fixed no-repeat !important;
+      background-image: url('https://www.openactive.io/assets/openactive-label-editorsdraft.png') !important;
+    }
+
+    body.toc-sidebar #toc {
+      background-size: 25px auto !important;
+      background-attachment: fixed !important;
+    }
+
+    h1 {
+      font-family: 'Open Sans', sans-serif !important;
+      font-weight: 300 !important;
+      color: #69b9ff !important;
+      font-size: 220%;
+    }
+
+    #toc {
+      padding-top: 0px !important;
+    }
+
+    .remove {
+      background-colour: yellow;
+    }
+
+    code {
+      color: #C83500;
+    }
+  </style>
+
+  <style id="respec-mainstyle">
+    /*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
+    /* Override code highlighter background */
+
+    .hljs {
+      background: transparent !important;
+    }
+    /* --- INLINES --- */
+
+    em.rfc2119 {
+      text-transform: lowercase;
+      font-style: normal;
+      color: #900;
+    }
+
+    h1 abbr,
+    h2 abbr,
+    h3 abbr,
+    h4 abbr,
+    h5 abbr,
+    h6 abbr,
+    a abbr {
+      border: none;
+    }
+
+    dfn {
+      font-weight: bold;
+    }
+
+    a.internalDFN {
+      color: inherit;
+      border-bottom: 1px solid #99c;
+      text-decoration: none;
+    }
+
+    a.externalDFN {
+      color: inherit;
+      border-bottom: 1px dotted #ccc;
+      text-decoration: none;
+    }
+
+    a.bibref {
+      text-decoration: none;
+    }
+
+    cite .bibref {
+      font-style: normal;
+    }
+
+    code {
+      color: #C83500;
+    }
+
+    th code {
+      color: inherit;
+    }
+    /* --- TOC --- */
+
+    .toc a,
+    .tof a {
+      text-decoration: none;
+    }
+
+    a .secno,
+    a .figno {
+      color: #000;
+    }
+
+    ul.tof,
+    ol.tof {
+      list-style: none outside none;
+    }
+
+    .caption {
+      margin-top: 0.5em;
+      font-style: italic;
+    }
+    /* --- TABLE --- */
+
+    table.simple {
+      border-spacing: 0;
+      border-collapse: collapse;
+      border-bottom: 3px solid #005a9c;
+    }
+
+    .simple th {
+      background: #005a9c;
+      color: #fff;
+      padding: 3px 5px;
+      text-align: left;
+    }
+
+    .simple th[scope="row"] {
+      background: inherit;
+      color: inherit;
+      border-top: 1px solid #ddd;
+    }
+
+    .simple td {
+      padding: 3px 10px;
+      border-top: 1px solid #ddd;
+    }
+
+    .simple tr:nth-child(even) {
+      background: #f0f6ff;
+    }
+    /* --- DL --- */
+
+    .section dd>p:first-child {
+      margin-top: 0;
+    }
+
+    .section dd>p:last-child {
+      margin-bottom: 0;
+    }
+
+    .section dd {
+      margin-bottom: 1em;
+    }
+
+    .section dl.attrs dd,
+    .section dl.eldef dd {
+      margin-bottom: 0;
+    }
+
+    #issue-summary>ul,
+    .respec-dfn-list {
+      column-count: 2;
+    }
+
+    #issue-summary li,
+    .respec-dfn-list li {
+      list-style: none;
+    }
+
+    @media print {
+      .removeOnSave {
+        display: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/cg-draft">
+  <link rel="canonical" href="https://www.w3.org/TR/publishing-opportunity-data-primer/">
+  <meta name="generator" content="ReSpec 12.0.5">
+  <script id="initialUserConfig" type="application/json">
+    {
+      "specStatus": "CG-DRAFT",
+      "shortName": "publishing-opportunity-data-primer",
+      "edDraftURI": "https://www.openactive.io/opportunity-data-primer/",
+      "copyrightStart": 2017,
+      "editors": [
+      {
+        "name": "Leigh Dodds",
+        "url": "http://ldodds.com",
+        "company": "Open Data Institute",
+        "companyURL": "http://opendata.institute/",
+        "w3cid": "55359"
+      }],
+      "authors": [],
+      "otherLinks": [
+      {
+        "key": "Repo",
+        "value": "We are on Github",
+        "href": "https://github.com/openactive/opportunity-data-primer/",
+        "class": "repo"
+      },
+      {
+        "key": "Issues",
+        "href": "https://github.com/openactive/opportunity-data-primer/issues/"
+      },
+      {
+        "key": "Version",
+        "value": "Editor's Draft"
+      }],
+      "logos": [
+      {
+        "src": "https://www.openactive.io/assets/openactive-logo-large.png",
+        "href": "https://www.openactive.io",
+        "alt": "openactive.io",
+        "width": 255,
+        "height": 33,
+        "id": "logo"
+      }],
+      "wg": "Openactive Community Group",
+      "wgURI": "https://www.w3.org/community/openactive/",
+      "wgPublicList": "public-openactive",
+      "maxTocLevel": 4,
+      "preProcess": [],
+      "alternateFormats": [
+      {
+        "uri": "diff-previous.html",
+        "label": "diff to previous version"
+      }],
+      "isRecTrack": true,
+      "isNoTrack": true,
+      "issueBase": "https://github.com/openactive/opportunity-data-primer/issues/",
+      "format": "markdown",
+      "noIDLIn": true,
+      "inlineCSS": true,
+      "noLegacyStyle": false,
+      "localBiblio":
+      {
+        "JSON-LD":
+        {
+          "href": "https://www.w3.org/TR/json-ld/",
+          "title": "JSON-LD 1.0",
+          "status": "REC",
+          "publisher": "W3C"
+        },
+        "SCHEMA-ORG":
+        {
+          "href": "http://schema.org/",
+          "title": "Schema.org"
+        },
+        "SKOS":
+        {
+          "href": "https://www.w3.org/TR/skos-primer",
+          "title": "SKOS Simple Knowledge Organization System Primer",
+          "status": "NOTE",
+          "publisher": "W3C"
+        },
+        "Modelling-Opportunity-Data":
+        {
+          "href": "https://www.openactive.io/modelling-opportunity-data/",
+          "title": "Modelling Opportunity Data",
+          "status": "CG-DRAFT",
+          "publisher": "Open Active Community Group"
+        },
+        "OpenActive-Vocabulary":
+        {
+          "href": "https://www.openactive.io/ns/",
+          "title": "OpenActive Vocabulary",
+          "status": "CG-DRAFT",
+          "publisher": "Open Active Community Group"
+        },
+        "Realtime-Paged-Data-Exchange":
+        {
+          "href": "https://www.openactive.io/realtime-paged-data-exchange/",
+          "title": "Realtime Paged Data Exchange",
+          "status": "CG-DRAFT",
+          "publisher": "Open Active Community Group"
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-entry toc-inline" id="respecDocument" aria-busy="false">
+  <div class="head" role="contentinfo" id="respecHeader">
+    <p>
+      <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
+    </p>
+    <p><span id="logo"><img src="https://www.openactive.io/assets/openactive-logo-large.png" width="255" height="33" alt="openactive.io"></span></p>
+    <h1 class="title p-name" id="title" property="dc:title">Publishing Opportunity Data: A Primer</h1>
+    <h2 id="draft-community-group-report-19-may-2017">Draft Community Group Report <time property="dc:issued" class="dt-published" datetime="2017-05-19">19 May 2017</time></h2>
+    <dl>
+      <dt>Latest editor's draft:</dt>
+      <dd><a href="https://www.openactive.io/opportunity-data-primer/">https://www.openactive.io/opportunity-data-primer/</a></dd>
+      <dt>Editor:</dt>
+      <dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0" data-editor-id="55359"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Leigh Dodds"><a class="u-url url p-name fn" property="foaf:homepage" href="http://ldodds.com">Leigh Dodds</a>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://opendata.institute/">Open Data Institute</a></span>
+        <span property="rdf:rest" resource="rdf:nil"></span>
+      </dd>
+
+      <dt class="repo">Repo:</dt>
+      <dd class="repo">
+        <a href="https://github.com/openactive/opportunity-data-primer/">
+                  We are on Github
+                </a>
+      </dd>
+      <dt>Issues:</dt>
+      <dd>
+        <a href="https://github.com/openactive/opportunity-data-primer/issues/">https://github.com/openactive/opportunity-data-primer/issues/</a>
+      </dd>
+      <dt>Version:</dt>
+      <dd>
+
+        Editor's Draft
+
+      </dd>
+    </dl>
+    <p>
+      This document is also available in this non-normative format:
+      <a rel="alternate" href="diff-previous.html">diff to previous version</a>
+    </p>
+    <p class="copyright">
+      <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2017 the Contributors to the Publishing Opportunity Data: A Primer Specification, published by the
+      <a href="https://www.w3.org/community/openactive/">Openactive Community Group</a> under the
+      <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>. A human-readable <a href="https://www.w3.org/community/about/agreements/cla-deed/">summary</a> is available.
+    </p>
+    <hr title="Separator for header">
+  </div>
+
+  <section id="abstract" class="introductory" property="dc:abstract">
+    <h2 id="h-abstract" resource="#h-abstract"><span property="xhv:role" resource="xhv:heading">Abstract</span></h2>
+    <p>Opportunity data describes opportunities for people to be physically activity. The data includes events, the locations in which they take place and descriptions of the physical activities that will participants will engage in.</p>
+    <p>Opportunity data can be published as open data, for anyone to access use and share. This allows the data to be reused to create applications and services that can help people become more physically active.
+    </p>
+    <p>The <a href="http://www.w3.org/community/openactive/">Openactive Community Group</a> are developing standards to support the publication and reuse of opportunity data. This primer demonstrates how to use those standards to describe and publish a variety of different types of opportunity data.
+    </p>
+    <p>Where possible, this primer links back to the relevant definitions in the underlying standards. Nothing in this primer overrides those normative definitions.</p>
+  </section>
+
+  <section id="sotd" class="introductory">
+    <h2 id="h-sotd" resource="#h-sotd"><span property="xhv:role" resource="xhv:heading">Status of This Document</span></h2>
+    <p>
+      This specification was published by the <a href="https://www.w3.org/community/openactive/">Openactive Community Group</a>. It is not a W3C Standard nor is it on the W3C Standards Track. Please note that under the
+      <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a> there is a limited opt-out and other conditions apply. Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p>
+    <p>The <a href="http://www.w3.org/community/openactive/">OpenActive Community Group</a> was established with the objective of facilitating the sharing and use of physical activity data. The group has so far produced several specifications that contribute towards achieving this aim:
+    </p>
+    <ul>
+      <li><a href="https://www.openactive.io/modelling-opportunity-data/">Modelling Opportunity Data</a></li>
+      <li><a href="https://www.openactive.io/realtime-paged-data-exchange/">Realtime Paged Data Exchange</a></li>
+    </ul>
+    <p>This document serves as a primer for developers to help them understand how to use those specifications to describe and publish different types of data.</p>
+    <p>If you wish to make comments regarding this document, please send them to
+      <a href="mailto:public-openactive@w3.org">public-openactive@w3.org</a> (<a href="mailto:public-openactive-request@w3.org?subject=subscribe">subscribe</a>,
+      <a href="https://lists.w3.org/Archives/Public/public-openactive/">archives</a>).</p>
+  </section>
+  <nav id="toc">
+    <h2 class="introductory" id="table-of-contents" resource="#table-of-contents"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2>
+    <ol class="toc" role="directory">
+      <li class="tocline"><a href="#conformance" class="tocxref"><span class="secno">1. </span>Conformance</a></li>
+      <li class="tocline"><a href="#typographical-conventions" class="tocxref"><span class="secno">2. </span>Typographical Conventions</a></li>
+      <li class="tocline"><a href="#overview" class="tocxref"><span class="secno">3. </span>Overview</a>
+        <ol class="toc">
+          <li class="tocline"><a href="#what-is-opportunity-data-" class="tocxref"><span class="secno">3.1 </span>What is opportunity data?</a></li>
+          <li class="tocline"><a href="#what-formats-can-be-used-to-publish-opportunity-data-" class="tocxref"><span class="secno">3.2 </span>What formats can be used to publish opportunity data?</a></li>
+          <li class="tocline"><a href="#what-data-standards-are-used-to-describe-opportunity-data-" class="tocxref"><span class="secno">3.3 </span>What data standards are used to describe opportunity data?</a></li>
+          <li class="tocline"><a href="#how-can-i-validate-my-opportunity-data-" class="tocxref"><span class="secno">3.4 </span>How can I validate my opportunity data?</a></li>
+        </ol>
+      </li>
+      <li class="tocline"><a href="#describing-opportunity-data" class="tocxref"><span class="secno">4. </span>Describing Opportunity Data</a>
+        <ol class="toc">
+          <li class="tocline"><a href="#how-do-you-indicate-that-your-data-conforms-to-the-specification-" class="tocxref"><span class="secno">4.1 </span>How do you indicate that your data conforms to the specification?</a></li>
+          <li class="tocline"><a href="#describing-events" class="tocxref"><span class="secno">4.2 </span>Describing Events</a>
+            <ol class="toc">
+              <li class="tocline"><a href="#how-do-you-describe-an-session-" class="tocxref"><span class="secno">4.2.1 </span>How do you describe an session?</a></li>
+              <li class="tocline"><a href="#how-do-you-describe-when-a-session-will-take-place-" class="tocxref"><span class="secno">4.2.2 </span>How do you describe when a session will take place?</a></li>
+              <li class="tocline"><a href="#how-can-you-provide-a-description-of-an-event-" class="tocxref"><span class="secno">4.2.3 </span>How can you provide a description of an event?</a></li>
+              <li class="tocline"><a href="#what-information-is-useful-to-include-in-a-session-description-" class="tocxref"><span class="secno">4.2.4 </span>What information is useful to include in a session description?</a></li>
+              <li class="tocline"><a href="#how-do-you-describe-the-physical-activities-take-will-place-during-a-session-" class="tocxref"><span class="secno">4.2.5 </span>How do you describe the physical activities take will place during a session?</a></li>
+              <li class="tocline"><a href="#what-if-a-session-will-involve-multiple-activities-" class="tocxref"><span class="secno">4.2.6 </span>What if a session will involve multiple activities?</a></li>
+              <li class="tocline"><a href="#how-can-you-refer-to-activities-from-a-standard-activity-list-" class="tocxref"><span class="secno">4.2.7 </span>How can you refer to activities from a standard activity list?</a></li>
+              <li class="tocline"><a href="#how-can-you-add-a-programme-to-an-event-" class="tocxref"><span class="secno">4.2.8 </span>How can you add a programme to an event?</a></li>
+              <li class="tocline"><a href="#how-can-you-describe-suitability-of-events-" class="tocxref"><span class="secno">4.2.9 </span>How can you describe suitability of events?</a></li>
+              <li class="tocline"><a href="#how-are-organisers-described-" class="tocxref"><span class="secno">4.2.10 </span>How are organisers described?</a></li>
+              <li class="tocline"><a href="#how-do-you-add-a-location-to-an-event-" class="tocxref"><span class="secno">4.2.11 </span>How do you add a location to an event?</a></li>
+              <li class="tocline"><a href="#how-are-recurring-events-described-" class="tocxref"><span class="secno">4.2.12 </span>How are recurring events described?</a></li>
+            </ol>
+          </li>
+          <li class="tocline"><a href="#describing-locations-and-facilities" class="tocxref"><span class="secno">4.3 </span>Describing Locations and Facilities</a>
+            <ol class="toc">
+              <li class="tocline"><a href="#how-do-you-add-a-geographic-location-" class="tocxref"><span class="secno">4.3.1 </span>How do you add a geographic location?</a></li>
+              <li class="tocline"><a href="#how-do-you-add-contact-details-" class="tocxref"><span class="secno">4.3.2 </span>How do you add contact details?</a></li>
+              <li class="tocline"><a href="#how-do-you-add-opening-times-" class="tocxref"><span class="secno">4.3.3 </span>How do you add opening times?</a></li>
+              <li class="tocline"><a href="#how-do-you-describe-the-facilities-at-a-location-" class="tocxref"><span class="secno">4.3.4 </span>How do you describe the facilities at a location?</a></li>
+              <li class="tocline"><a href="#how-do-you-describe-walking-trails-and-other-opportunities-at-a-location-" class="tocxref"><span class="secno">4.3.5 </span>How do you describe walking trails and other opportunities at a location?</a></li>
+            </ol>
+          </li>
+          <li class="tocline"><a href="#describing-activity-lists" class="tocxref"><span class="secno">4.4 </span>Describing Activity Lists</a>
+            <ol class="toc">
+              <li class="tocline"><a href="#describing-a-simple-list-of-activities" class="tocxref"><span class="secno">4.4.1 </span>Describing a simple list of activities</a></li>
+              <li class="tocline"><a href="#adding-alternate-names-for-an-activity" class="tocxref"><span class="secno">4.4.2 </span>Adding alternate names for an activity</a></li>
+              <li class="tocline"><a href="#describing-hierarchical-lists-of-activities" class="tocxref"><span class="secno">4.4.3 </span>Describing hierarchical lists of activities</a></li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li class="tocline"><a href="#publishing-opportunity-data" class="tocxref"><span class="secno">5. </span>Publishing opportunity data</a>
+        <ol class="toc">
+          <li class="tocline"><a href="#how-can-activity-lists-be-published-using-json-ld-" class="tocxref"><span class="secno">5.1 </span>How can activity lists be published using JSON-LD?</a></li>
+          <li class="tocline"><a href="#how-can-session-data-be-published-via-an-api-" class="tocxref"><span class="secno">5.2 </span>How can session data be published via an API?</a></li>
+          <li class="tocline"><a href="#how-can-opportunity-data-be-embedded-in-web-pages-" class="tocxref"><span class="secno">5.3 </span>How can opportunity data be embedded in web pages?</a></li>
+        </ol>
+      </li>
+      <li class="tocline"><a href="#acknowledgements" class="tocxref"><span class="secno">A. </span>Acknowledgements</a></li>
+      <li class="tocline"><a href="#references" class="tocxref"><span class="secno">B. </span>References</a>
+        <ol class="toc">
+          <li class="tocline"><a href="#normative-references" class="tocxref"><span class="secno">B.1 </span>Normative references</a></li>
+          <li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">B.2 </span>Informative references</a></li>
+        </ol>
+      </li>
+    </ol>
+  </nav>
+
+  <section id="conformance" typeof="bibo:Chapter" resource="#conformance" property="bibo:hasPart">
+    <!--OddPage-->
+    <h2 id="h-conformance" resource="#h-conformance"><span property="xhv:role" resource="xhv:heading"><span class="secno">1. </span>Conformance</span>
+    </h2>
+    <p>
+      As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.
+    </p>
+    <p id="respecRFC2119">The key word <em class="rfc2119">MAY</em> is to be interpreted as described in [<cite><a class="bibref" href="#bib-RFC2119">RFC2119</a></cite>].
+    </p>
+    <p>This primer makes use of the compact IRI Syntax; please refer to the <a href="http://www.w3.org/TR/json-ld/#compact-iris">Compact IRIs</a> from [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>].</p>
+    <p>The following namespaces are used in this primer:</p>
+    <dl>
+      <dt><code>dc:</code></dt>
+      <dd><code><a href="http://purl.org/dc/terms/">http://purl.org/dc/terms/</a></code></dd>
+      <dt><code>schema:</code></dt>
+      <dd><code><a href="http://schema.org/">http://schema.org/</a></code></dd>
+      <dt><code>skos:</code></dt>
+      <dd><code><a href="http://www.w3.org/2004/02/skos/core#">http://www.w3.org/2004/02/skos/core#</a></code></dd>
+      <dt><code>oa:</code></dt>
+      <dd><code><a href="https://www.openactive.io/ns/">https://www.openactive.io/ns/</a></code></dd>
+    </dl>
+  </section>
+
+  <section typeof="bibo:Chapter" resource="#typographical-conventions" property="bibo:hasPart">
+    <!--OddPage-->
+    <h2 id="typographical-conventions" resource="#typographical-conventions"><span property="xhv:role" resource="xhv:heading"><span class="secno">2. </span>Typographical Conventions</span>
+    </h2>
+    <p>The following typographic conventions are used in this primer:</p>
+    <dl class="typography">
+      <p></p>
+      <p></p><dt><code>markup</code></dt>
+      <p></p>
+      <p></p>
+      <dd>Markup (elements, attributes, properties), machine processable values (string, characters, media types), property name, or a file name is in a monospace font.</dd>
+      <p></p>
+      <p></p><dt><strong><em>definition</em></strong></dt>
+      <p></p>
+      <p></p>
+      <dd>A definition of a term, to be used elsewhere in this document or other specifications, is in bold and italics.</dd>
+      <p></p>
+      <p></p><dt><a href="">hyperlink</a></dt>
+      <p></p>
+      <p></p>
+      <dd>A hyperlink is underlined and in blue.</dd>
+      <p></p>
+      <p></p><dt><a href="">[reference]</a></dt>
+      <p></p>
+      <p></p>
+      <dd>A document reference (normative or informative) is enclosed in square brackets and links to the references section.</dd>
+    </dl>
+    <p></p>
+    <p></p>
+    <div class="note">
+      <div class="note-title marker" aria-level="3" role="heading" id="h-note1"><span>Note</span></div>
+      <div class="">
+        <p>Notes are in light green boxes with a green left border and with a "Note" header in green. Notes are normative or informative depending on the whether they are in a normative or informative section, respectively.</p>
+      </div>
+    </div>
+    <p></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 1</span></div>
+      <pre class="hljs javascript" aria-busy="false" aria-live="polite">Examples are <span class="hljs-keyword">in</span> light khaki boxes, <span class="hljs-keyword">with</span> khaki left border, and <span class="hljs-keyword">with</span> a 
+numbered <span class="hljs-string">"Example"</span> header <span class="hljs-keyword">in</span> khaki. Examples are always informative. 
+The content <span class="hljs-keyword">of</span> the example is <span class="hljs-keyword">in</span> monospace font and may be syntax colored.</pre>
+    </div>
+  </section>
+
+  <section typeof="bibo:Chapter" resource="#overview" property="bibo:hasPart">
+    <!--OddPage-->
+    <h2 id="overview" resource="#overview"><span property="xhv:role" resource="xhv:heading"><span class="secno">3. </span>Overview</span>
+    </h2>
+
+    <section typeof="bibo:Chapter" resource="#what-is-opportunity-data-" property="bibo:hasPart">
+      <h3 id="what-is-opportunity-data-" resource="#what-is-opportunity-data-"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1 </span>What is opportunity data?</span>
+      </h3>
+      <p>There are several different types of data that are relevant to describing physical activities.</p>
+      <figure id="fig-types-of-physical-activity-data">
+        <p><img src="images/opportunity-data.png" alt=""></p>
+        <figcaption>Figure <span class="figno">1</span> <span class="fig-title">Types of physical activity data</span></figcaption>
+      </figure>
+      <p>Opportunity data includes:</p>
+      <ul>
+        <li>descriptions of <a href="https://www.openactive.io/modelling-opportunity-data/#physical-activities">Physical Activities</a></li>
+        <li>details of the <a href="https://www.openactive.io/modelling-opportunity-data/#places">Places</a>, e.g. the locations and venues at which activities or events takes place</li>
+        <li>the facilities available at those locations</li>
+        <li>descriptions of <a href="https://www.openactive.io/modelling-opportunity-data/#events">Events</a> and <a href="https://www.openactive.io/modelling-opportunity-data/#activity-opportunities">other opportunities</a> including information on when they will take place, restrictions on attendance, the <a href="https://www.openactive.io/modelling-opportunity-data/#programmes">format of the event</a>, etc</li>
+        <li>information about <a href="https://www.openactive.io/modelling-opportunity-data/#organisers-persons-and-organizations-">the people or organisations that organise</a> an Event</li>
+      </ul>
+    </section>
+
+    <section typeof="bibo:Chapter" resource="#what-formats-can-be-used-to-publish-opportunity-data-" property="bibo:hasPart">
+      <h3 id="what-formats-can-be-used-to-publish-opportunity-data-" resource="#what-formats-can-be-used-to-publish-opportunity-data-"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2 </span>What formats can be used to publish opportunity data?</span>
+      </h3>
+      <p>The Modelling Opportunity Data ([Modelling-Opportunity-Data]) specification has been <a href="https://www.openactive.io/modelling-opportunity-data/#be-agnostic-to-formats-and-apis">designed to allow</a> opportunity data to be published in a variety of formats. Data could be published as JSON, XML, RDF, or even CSV files.</p>
+      <p>It is expected that the most commonly used format will be JSON. All of the examples in this document use [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>] syntax. JSON-LD provides a means of publishing data as simple JSON documents but ensures that the terms used in the data are all linked to a standard, machine-readable definition.
+      </p>
+      <p>This helps users of the data to be confident about the meaning of the individual fields in the data. This helps to simplify data integration.</p>
+    </section>
+
+    <section typeof="bibo:Chapter" resource="#what-data-standards-are-used-to-describe-opportunity-data-" property="bibo:hasPart">
+      <h3 id="what-data-standards-are-used-to-describe-opportunity-data-" resource="#what-data-standards-are-used-to-describe-opportunity-data-"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.3 </span>What data standards are used to describe opportunity data?</span>
+      </h3>
+      <p>There are three standards that have been used to help define a common data model for opportunity data. These are:</p>
+      <ul>
+        <li>[<cite><a class="bibref" href="#bib-SCHEMA-ORG">SCHEMA-ORG</a></cite>] which is a community-driven standard that supports publication of data to the web</li>
+        <li>[<cite><a class="bibref" href="#bib-SKOS">SKOS</a></cite>] which supports sharing of controlled vocabularies and taxonomies, e.g. the <a href="https://www.openactive.io/modelling-opportunity-data/#physical-activities">activity lists used to describe Physical Activities</a></li>
+        <li>[<cite><a class="bibref" href="#bib-Modelling-Opportunity-Data">Modelling-Opportunity-Data</a></cite>] which describes how these standards can be combined with the custom terms defined in the [<cite><a class="bibref" href="#bib-OpenActive-Vocabulary">OpenActive-Vocabulary</a></cite>] to describe opportunity data</li>
+      </ul>
+    </section>
+
+    <section typeof="bibo:Chapter" resource="#how-can-i-validate-my-opportunity-data-" property="bibo:hasPart">
+      <h3 id="how-can-i-validate-my-opportunity-data-" resource="#how-can-i-validate-my-opportunity-data-"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.4 </span>How can I validate my opportunity data?</span>
+      </h3>
+      <div class="note">
+        <div class="note-title marker" aria-level="4" role="heading" id="h-note2"><span>Note</span></div>
+        <div class="">
+          <p>The OpenActive project and community group are planning to develop additional validation tools for developers. Links to those tools will be added in future drafts of this primer</p>
+        </div>
+      </div>
+      <p>Currently there are two tools that can help to validate opportunity data:</p>
+      <ul>
+        <li>The <a href="http://json-ld.org/playground/">JSON-LD Playground</a> provides a general purpose tool for validating [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>] documents</li>
+        <li><a href="http://validator.openactive.io/">OpenActive Validator</a> supports validation of APIs that conform to the [<cite><a class="bibref" href="#bib-Realtime-Paged-Data-Exchange">Realtime-Paged-Data-Exchange</a></cite>] specification</li>
+      </ul>
+    </section>
+  </section>
+
+  <section typeof="bibo:Chapter" resource="#describing-opportunity-data" property="bibo:hasPart">
+    <!--OddPage-->
+    <h2 id="describing-opportunity-data" resource="#describing-opportunity-data"><span property="xhv:role" resource="xhv:heading"><span class="secno">4. </span>Describing Opportunity Data</span>
+    </h2>
+    <p>The [<cite><a class="bibref" href="#bib-Modelling-Opportunity-Data">Modelling-Opportunity-Data</a></cite>] specification defines a <a href="https://www.openactive.io/modelling-opportunity-data/#data-model">data model for opportunity data</a>. The model provides a means for different platforms and applications to publish data in a consistent way. This makes it easier for users to work with data from multiple publishers.
+    </p>
+    <p>The following sections each illustrate how a different aspect of the data model can be used to publish certain types of data. </p>
+    <div class="note">
+      <div class="note-title marker" aria-level="3" role="heading" id="h-note3"><span>Note</span></div>
+      <div class="">
+        <p>
+          In the following sections all references to terms defined in other specifications have been qualified using their namespace prefix. This helps to highlight the source vocabulary in which they are defined. The terms are also linked to their definitions.
+        </p>
+        <p>
+          The examples in each section use [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>] syntax and make use of <a href="https://www.openactive.io/ns/#term-definitions">the terms declared in the OpenActive Vocabulary</a>. This feature of [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>] removes the need to use explicit namespace prefixes.
+        </p>
+      </div>
+    </div>
+
+    <section typeof="bibo:Chapter" resource="#how-do-you-indicate-that-your-data-conforms-to-the-specification-" property="bibo:hasPart">
+      <h3 id="how-do-you-indicate-that-your-data-conforms-to-the-specification-" resource="#how-do-you-indicate-that-your-data-conforms-to-the-specification-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.1 </span>How do you indicate that your data conforms to the specification?</span>
+      </h3>
+      <p>It is important to indicate to users of your data that your data conforms to the [<cite><a class="bibref" href="#bib-Modelling-Opportunity-Data">Modelling-Opportunity-Data</a></cite>] specification. This is achieving by:
+      </p>
+      <ul>
+        <li>ensuring that your JSON is a valid [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>] document, e.g. by validating it using a tool like the <a href="http://json-ld.org/playground/">JSON-LD Playground</a></li>
+        <li>declaring your use of the standard terms by adding a <code>@context</code> key to your JSON</li>
+      </ul>
+      <p>A <a href="https://www.w3.org/TR/json-ld/#the-context">JSON-LD context</a> maps the terms used in a JSON document to their standard definitions. To indicate that your data conforms to the [<cite><a class="bibref" href="#bib-Modelling-Opportunity-Data">Modelling-Opportunity-Data</a></cite>] specification, include a <code>@context</code> reference that refers to <a href="https://www.openactive.io/ns/oa.jsonld">our JSON-LD context</a>:</p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 2</span><span style="text-transform: none">: Adding a context</span></div>
+        <pre class="hljs javascript" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  ...include rest <span class="hljs-keyword">of</span> data here...
+}
+</pre>
+      </div>
+    </section>
+
+    <section typeof="bibo:Chapter" resource="#describing-events" property="bibo:hasPart">
+      <h3 id="describing-events" resource="#describing-events"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2 </span>Describing Events</span>
+      </h3>
+      <p>The following sections illustrate different aspects of describing <a href="https://www.openactive.io/modelling-opportunity-data/#events">Events</a>. For more information consult the
+        <a href="https://www.openactive.io/modelling-opportunity-data/#describing-events-code-schema-event-code-">Describing Events</a> section of the data model.
+      </p>
+
+      <section typeof="bibo:Chapter" resource="#how-do-you-describe-an-session-" property="bibo:hasPart">
+        <h4 id="how-do-you-describe-an-session-" resource="#how-do-you-describe-an-session-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.1 </span>How do you describe an session?</span>
+        </h4>
+        <p>The basic information required about a session is
+        </p>
+        <ul>
+          <li>its name</li>
+          <li>a URL providing a link to a web page describing the session</li>
+          <li>the time at which the event will take place</li>
+          <li>an indication of the type of activity that will take place at an event</li>
+          <li>the location at which the event will take place</li>
+        </ul>
+        <p>The following example illustrates this basic usage:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 3</span><span style="text-transform: none">: Describing a session</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T20:00:00"</span>,
+  <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"Tai Chi"</span>,
+  <span class="hljs-attr">"location"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Place"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"ExampleCo Gym"</span>,
+    <span class="hljs-attr">"address"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"PostalAddress"</span>,
+      <span class="hljs-attr">"streetAddress"</span>: <span class="hljs-string">"1 High Street"</span>,
+      <span class="hljs-attr">"addressLocality"</span>: <span class="hljs-string">"Bristol"</span>,
+      <span class="hljs-attr">"postalCode"</span>: <span class="hljs-string">"BS1 4SD"</span>
+    }
+  }
+}
+</pre>
+        </div>
+        <p>The <code>type</code> property indicates that the JSON is describing an <a href="https://www.openactive.io/modelling-opportunity-data/#describing-events-code-schema-event-code-"><code>Event</code></a> rather than one of the other types of resource defined in the data model.
+        </p>
+        <p>This is a very basic session description. The following sections in this primer illustrate how to provide more detail. </p>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-do-you-describe-when-a-session-will-take-place-" property="bibo:hasPart">
+        <h4 id="how-do-you-describe-when-a-session-will-take-place-" resource="#how-do-you-describe-when-a-session-will-take-place-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.2 </span>How do you describe when a session will take place?</span>
+        </h4>
+        <p>The example in the previous section illustrated how to the the <a href="https://schema.org/startDate"><code>schema:startDate</code></a> property to specify the starte time of an event. The property value must be an [<cite><a class="bibref" href="#bib-ISO8601">ISO8601</a></cite>] date or date time.
+        </p>
+        <p>It would be useful for participants to also how long the session will last. The <a href="https://schema.org/endDate"><code>schema:endDate</code></a> and <a href="https://schema.org/duration"><code>schema:duration</code></a> properties allow this to be defined in two different ways.
+        </p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 4</span><span style="text-transform: none">: Describing a session</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T20:00:00"</span>,
+  <span class="hljs-attr">"endDate"</span>: <span class="hljs-string">"2017-03-22T21:00:00"</span>,
+  <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT60M"</span>,
+  <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"Tai Chi"</span>,
+  <span class="hljs-attr">"location"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Place"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"ExampleCo Gym"</span>,
+    <span class="hljs-attr">"address"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"PostalAddress"</span>,
+      <span class="hljs-attr">"streetAddress"</span>: <span class="hljs-string">"1 High Street"</span>,
+      <span class="hljs-attr">"addressLocality"</span>: <span class="hljs-string">"Bristol"</span>,
+      <span class="hljs-attr">"postalCode"</span>: <span class="hljs-string">"BS1 4SD"</span>
+    }
+  }
+}
+</pre>
+        </div>
+        <p>Adding an <a href="https://schema.org/endDate"><code>schema:endDate</code></a> allows you to specify the exact end time of the session. The <a href="https://schema.org/duration"><code>schema:duration</code></a> allows the length of the session to be defined using an [<cite><a class="bibref" href="#bib-ISO8601">ISO8601</a></cite>] duration.
+        </p>
+        <p>While the duration can be calculated from a start and end time, or an end time from a start time and a duration, there are options to use both to convey more information. </p>
+        <p>For example if an data publisher includes both a start time AND an end time, then the duration property <em class="rfc2119"><em class="rfc2119" title="MAY">MAY</em></em> be used to specify the actual length of the activity.
+        </p>
+        <p>In the following example a gym class begins at 6pm and ends at 7pm. But the event involves a ten minute setup and tear down at the beginning and end of the session. In this case the duration of the activity is actually 40 minutes:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 5</span><span style="text-transform: none">: Using duration to illustrate length of activity</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Gym Class"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T18:00:00"</span>,
+  <span class="hljs-attr">"endDate"</span>: <span class="hljs-string">"2017-03-22T19:00:00"</span>,
+  <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT40M"</span>,
+  <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"Gymnastics"</span>,
+  <span class="hljs-attr">"location"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Place"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"ExampleCo Gym"</span>,
+    <span class="hljs-attr">"address"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"PostalAddress"</span>,
+      <span class="hljs-attr">"streetAddress"</span>: <span class="hljs-string">"1 High Street"</span>,
+      <span class="hljs-attr">"addressLocality"</span>: <span class="hljs-string">"Bristol"</span>,
+      <span class="hljs-attr">"postalCode"</span>: <span class="hljs-string">"BS1 4SD"</span>
+    }
+  }
+}
+</pre>
+        </div>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-can-you-provide-a-description-of-an-event-" property="bibo:hasPart">
+        <h4 id="how-can-you-provide-a-description-of-an-event-" resource="#how-can-you-provide-a-description-of-an-event-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.3 </span>How can you provide a description of an event?</span>
+        </h4>
+        <p>The <a href="https://schema.org/description"><code>schema:description</code></a> property can be used to provide a short description of an event.</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: Describing a session</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A tutored beginner's class that will involve demonstrates and a set of warm-up activities. Everyone welcome"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T20:00:00"</span>,
+  <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"Tai Chi"</span>,
+  <span class="hljs-attr">"location"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Place"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"ExampleCo Gym"</span>,
+    <span class="hljs-attr">"address"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"PostalAddress"</span>,
+      <span class="hljs-attr">"streetAddress"</span>: <span class="hljs-string">"1 High Street"</span>,
+      <span class="hljs-attr">"addressLocality"</span>: <span class="hljs-string">"Bristol"</span>,
+      <span class="hljs-attr">"postalCode"</span>: <span class="hljs-string">"BS1 4SD"</span>
+    }
+  }
+}
+</pre>
+        </div>
+        <p>The description should be an overview of the event that provides more detail to attendees. The content may be reused in a number of different contexts, e.g. web and mobile applications. For this reason it should ideally not include any HTML markup, although applications <em class="rfc2119"><em class="rfc2119" title="MAY">MAY</em></em> include markup, e.g. to link to additional material.</p>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#what-information-is-useful-to-include-in-a-session-description-" property="bibo:hasPart">
+        <h4 id="what-information-is-useful-to-include-in-a-session-description-" resource="#what-information-is-useful-to-include-in-a-session-description-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.4 </span>What information is useful to include in a session description?</span>
+        </h4>
+        <p>The <a href="https://schema.org/description"><code>schema:description</code></a> field supports event organisers in providing a free-text description of their event. A good Event description will include sufficient detail that will help participants understand what the event will involve. For example it might be useful to include:
+        </p>
+        <ul>
+          <li>a description of how the event will be run</li>
+          <li>the types of people who are or will be attending the event</li>
+          <li>information on the event organiser</li>
+          <li>notes on any equipment required</li>
+          <li>suggested apparel, e.g. footwear, kit, etc</li>
+        </ul>
+        <p>The [<cite><a class="bibref" href="#bib-Modelling-Opportunity-Data">Modelling-Opportunity-Data</a></cite>] specification provides additional ways to describe events using more structured data. This includes:</p>
+        <ul>
+          <li>providing photos of an event, so participants can see what might be involved</li>
+          <li>adding categories to describe an event, e.g. its intensity</li>
+          <li>describing the suitability of an event for different types of participants</li>
+          <li>information on the format of an event, e.g. does it follow a branded programme?</li>
+          <li>adding descriptions of the event organisers and any contributors involved in running the event</li>
+        </ul>
+        <p>The following sections cover those aspects in more detail.</p>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-do-you-describe-the-physical-activities-take-will-place-during-a-session-" property="bibo:hasPart">
+        <h4 id="how-do-you-describe-the-physical-activities-take-will-place-during-a-session-" resource="#how-do-you-describe-the-physical-activities-take-will-place-during-a-session-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.5 </span>How do you describe the physical activities take will place during a session?</span>
+        </h4>
+        <p>The physical activity that will take place at an event are described using the <a href="https://www.openactive.io/ns/#activity"><code>oa:activity</code></a> property:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Adding an activity</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"Tai Chi"</span>,
+}
+</pre>
+        </div>
+        <p>The name of the activity is provided as the value for the property. Applications may allow event organisers to enter their own activity names or instead require them to select names from <a href="https://www.openactive.io/modelling-opportunity-data/#physical-activities">a standard list of activities</a>.
+        </p>
+        <div class="note">
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note4"><span>Note</span></div>
+          <div class="">
+            <p>The OpenActive Community Group are working on a roadmap to develop a standardised list of activities for the sector. In addition to this, organisers that are already curating activity lists are encouraged to publish them as open data.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#what-if-a-session-will-involve-multiple-activities-" property="bibo:hasPart">
+        <h4 id="what-if-a-session-will-involve-multiple-activities-" resource="#what-if-a-session-will-involve-multiple-activities-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.6 </span>What if a session will involve multiple activities?</span>
+        </h4>
+        <p>The value of <a href="https://www.openactive.io/ns/#activity"><code>oa:activity</code></a> property can be a list of activity names, specified as a JSON array in the following example:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: Adding multiple activities</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"General fitness class"</span>,
+  <span class="hljs-attr">"activity"</span>: [<span class="hljs-string">"Aerobics"</span>, <span class="hljs-string">"Weight Lifting"</span>, <span class="hljs-string">"Yoga"</span>]
+}
+</pre>
+        </div>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-can-you-refer-to-activities-from-a-standard-activity-list-" property="bibo:hasPart">
+        <h4 id="how-can-you-refer-to-activities-from-a-standard-activity-list-" resource="#how-can-you-refer-to-activities-from-a-standard-activity-list-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.7 </span>How can you refer to activities from a standard activity list?</span>
+        </h4>
+        <p>The Physical Activities used to describe an event may be drawn from a standard Activity List.
+        </p>
+        <p>In this case it is useful to make this explicit in the opportunity data. In the following example the Physical Activity associated with the Event is expressed as a structured value (a JSON object). This allows more information to be provided, including not just its name, but also its identifier, and the identifier of the Activity List from which it has been drawn:
+        </p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 9</span><span style="text-transform: none">: Using activities from an Activity List</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A tai chi class intended for beginners"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T20:00:00-05:00"</span>,
+  <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT60M"</span>,
+  <span class="hljs-attr">"activity"</span>: {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"http://example.org/activity-list#tai-chi"</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Concept"</span>,
+    <span class="hljs-attr">"prefLabel"</span>: <span class="hljs-string">"Tai chi"</span>,
+    <span class="hljs-attr">"altLabel"</span>: <span class="hljs-string">"Tai-chi"</span>,
+    <span class="hljs-attr">"inScheme"</span>: <span class="hljs-string">"http://example.org/activity-list"</span>
+  }
+}
+</pre>
+        </div>
+        <p>An application that uses this data may then access the activity list to find out more information about the event. For example whether there are broader terms (e.g. "Martial Arts" or "Combat") that could be used to drive discovery and recommendations of events to potential participants.
+        </p>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-can-you-add-a-programme-to-an-event-" property="bibo:hasPart">
+        <h4 id="how-can-you-add-a-programme-to-an-event-" resource="#how-can-you-add-a-programme-to-an-event-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.8 </span>How can you add a programme to an event?</span>
+        </h4>
+        <p>Events are often organised and run in a variety of ways. These different formats are often associated with specific branding, e.g. "Les Mills BodyPump" or "Back to Netball". These are referred to a <a href="https://www.openactive.io/modelling-opportunity-data/#programmes">Programmes</a> in the [<cite><a class="bibref" href="#bib-Modelling-Opportunity-Data">Modelling-Opportunity-Data</a></cite>] specification.
+        </p>
+        <p>Events can be associated with a Programme using the <a href="https://www.openactive.io/ns/#programme"><code>oa:programme</code></a> property. In its simplest form this allows the name of a Programme be provided as part of the event description:
+        </p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 10</span><span style="text-transform: none">: Adding a Programme</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Rowing Class"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A rowing class for beginners"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-04-01T08:00:00"</span>,
+  <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT60M"</span>
+  <span class="hljs-string">"programme"</span>: <span class="hljs-string">"Learn to Row"</span>
+}
+</pre>
+        </div>
+        <p>If more information about the Programme is available, then this can be included by describing the Programme in a more structured way:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 11</span><span style="text-transform: none">: Supplying more information about a Programme</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Rowing Class"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A rowing class for beginners"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-04-01T08:00:00"</span>,
+  <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT60M"</span>,
+  <span class="hljs-attr">"category"</span>: [<span class="hljs-string">"Beginner"</span>],
+  <span class="hljs-attr">"programme"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Learn to Row"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://www.britishrowing.org/go-rowing/learn-to-row/"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Getting started in rowing couldn’t be easier!"</span>
+  }
+}
+</pre>
+        </div>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-can-you-describe-suitability-of-events-" property="bibo:hasPart">
+        <h4 id="how-can-you-describe-suitability-of-events-" resource="#how-can-you-describe-suitability-of-events-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.9 </span>How can you describe suitability of events?</span>
+        </h4>
+        <p>There are a variety of ways of expressing that an Event is suitable for specific audiences. This includes describing that an event is:</p>
+        <ul>
+          <li>suited for a specific age range</li>
+          <li>suited for people within a specific height or weight rage</li>
+          <li>restricted to a male, female or mixed audience</li>
+        </ul>
+        <p>The following example illustrates how to indicate that an event it targeted as a specific age range (over 60s) but is open to a mixed audience:
+        </p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 12</span><span style="text-transform: none">: Age and gender example</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A tai chi class intended for beginners"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T20:00:00-05:00"</span>,
+  <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT60M"</span>,
+  <span class="hljs-attr">"ageRange"</span>: <span class="hljs-string">"60"</span>,
+  <span class="hljs-attr">"genderRestriction"</span>: <span class="hljs-string">"mixed"</span>
+}
+</pre>
+        </div>
+        <p>An Event involving a climbing activity might be limited to people within a specific age or weight range. The following example describes na event that is suitable for anyone who are 10 or over, but expresses specific height and weight ranges:
+        </p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 13</span><span style="text-transform: none">: Age and gender example</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Climbing adventure"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A tree top climbing adventure"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T10:00:00"</span>,
+  <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT60M"</span>,
+  <span class="hljs-attr">"ageRange"</span>: <span class="hljs-string">"10"</span>,
+  <span class="hljs-attr">"genderRestriction"</span>: <span class="hljs-string">"mixed"</span>
+  <span class="hljs-string">"heightRange"</span>: <span class="hljs-string">"1.4"</span>,
+  <span class="hljs-attr">"weightRange"</span>: <span class="hljs-string">"45-125"</span>
+}
+</pre>
+        </div>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-are-organisers-described-" property="bibo:hasPart">
+        <h4 id="how-are-organisers-described-" resource="#how-are-organisers-described-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.10 </span>How are organisers described?</span>
+        </h4>
+        <p>The organisers of an event might be an organisation such as a club, or it might be an individual trainer. Both of these can be described using terms from the specification.
+        </p>
+        <p>The following example illustrates how to describe that the organiser of an event is a club (a <a href="https://schema.org/Organization"><code>schema:Organization</code></a>):</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 14</span><span style="text-transform: none">: Specifying an organiser</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A tai chi class intended for beginners"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T20:00:00-05:00"</span>,
+  <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT60M"</span>,
+  
+  <span class="hljs-attr">"organizer"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Organization"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://example.org/clubs/1"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Bath Tai Chi Club"</span>  }
+  
+}
+</pre>
+        </div>
+        <p>People can be described using the <a href="https://schema.org/Person"><code>schema:Person</code></a> type and then associated with an event as either an organiser (as above) or a contributor. The contributor property allows individual trainers or instructors to be associated with an event alongside an organiser
+        </p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 15</span><span style="text-transform: none">: Adding a trainer</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A tai chi class intended for beginners"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T20:00:00-05:00"</span>,
+  <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT60M"</span>,
+  <span class="hljs-attr">"organizer"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Organization"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://example.org/clubs/1"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Bath Tai Chi Club"</span>  }
+  
+  <span class="hljs-string">"contributor"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Person"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John Smith"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Experienced Tai chi instructor with 10 years of experience"</span>  }
+  
+}
+</pre>
+        </div>
+        <div class="note">
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note5"><span>Note</span></div>
+          <div class="">
+            <p><strong>Applications should not publish personal data without permission</strong></p>
+            <p>
+              However applications should respect privacy and data protection laws and must not publish data about individuals without their consent.
+            </p>
+            <p>
+              The ability to publish this type of data has been included because event organisers often choose to publicly share some information about themselves to help advertise an event. E.g. their name and some background on their qualifications or experience. But this information should not be published as open data without getting the consent of the individual concerned.
+            </p>
+          </div>
+        </div><a href="https://www.openactive.io/ns/#category"><code>oa:category</code></a>
+        <div class="example">
+          <div class="example-title marker"><span>Example 16</span><span style="text-transform: none">: Tagging an Event</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A tai chi class intended for beginners"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T20:00:00-05:00"</span>,
+  <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT60M"</span>,
+  <span class="hljs-attr">"category"</span>: [<span class="hljs-string">"Beginner"</span>, <span class="hljs-string">"Low intensity"</span>]
+}
+</pre>
+        </div>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-do-you-add-a-location-to-an-event-" property="bibo:hasPart">
+        <h4 id="how-do-you-add-a-location-to-an-event-" resource="#how-do-you-add-a-location-to-an-event-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.11 </span>How do you add a location to an event?</span>
+        </h4>
+        <p>Locations are added to events using the <a href="https://schema.org/location"><code>schema:location</code></a> property. The recommendation in the [<cite><a class="bibref" href="#bib-Modelling-Opportunity-Data">Modelling-Opportunity-Data</a></cite>] specification is that applications should provide as much information about the Place in which the event will take place as possible. For example, the name and address for the venue:
+        </p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 17</span><span style="text-transform: none">: Adding a location</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T20:00:00"</span>,
+  <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"Tai Chi"</span>,
+  
+  <span class="hljs-attr">"location"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Place"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"ExampleCo Gym"</span>,
+    <span class="hljs-attr">"address"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"PostalAddress"</span>,
+      <span class="hljs-attr">"streetAddress"</span>: <span class="hljs-string">"1 High Street"</span>,
+      <span class="hljs-attr">"addressLocality"</span>: <span class="hljs-string">"Bristol"</span>,
+      <span class="hljs-attr">"postalCode"</span>: <span class="hljs-string">"BS1 4SD"</span>
+    }
+  }
+  
+}
+</pre>
+        </div>
+        <p>The specification provides some flexibility to accommodate the variety of ways that systems index and collect location information. For example it is permitted to only specify an address for a location:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 18</span><span style="text-transform: none">: Adding an address</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T20:00:00"</span>,
+  <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"Tai Chi"</span>,
+  
+  <span class="hljs-attr">"location"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"PostalAddress"</span>,
+    <span class="hljs-attr">"streetAddress"</span>: <span class="hljs-string">"1 High Street"</span>,
+    <span class="hljs-attr">"addressLocality"</span>: <span class="hljs-string">"Bristol"</span>,
+    <span class="hljs-attr">"postalCode"</span>: <span class="hljs-string">"BS1 4SD"</span>
+  }
+  
+}
+</pre>
+        </div>
+        <p>The location property can also be used to provide just the name of a location, e.g. "Bath Leisure Centre".</p>
+        <p>However this means that participants have less information about where the event will be running. Applications should instead include a more complete Place description as described in the following section.
+        </p>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-are-recurring-events-described-" property="bibo:hasPart">
+        <h4 id="how-are-recurring-events-described-" resource="#how-are-recurring-events-described-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.12 </span>How are recurring events described?</span>
+        </h4>
+        <div class="note">
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note6"><span>Note</span></div>
+          <div class="">
+            <p>This section is contingent on an open issue so may be subsequent to change. There is a discussion under way in the Schema.org community to extend their model to cover recurring events. The <a href="https://github.com/schemaorg/schemaorg/issues/1457#issuecomment-286423792">proposal</a> is to add a new <code>schema:eventSchedule</code> property that will refer to a <a href="http://www.kanzaki.com/docs/ical/rrule.html">recurrence rule</a> as defined in the iCalendar specification. The assumption is that this proposal will be expected and the specification will then recommend use of the <code>schema:eventSchedule</code> property. The following section is written on that basis but is subsequent to change.</p>
+          </div>
+        </div>
+        <p>Some systems allow organisers to set up a schedule of events. The [<cite><a class="bibref" href="#bib-Modelling-Opportunity-Data">Modelling-Opportunity-Data</a></cite>] specification allows these schedules to be shared as open data, as well as Events that occur at a specific date and time. Sharing those events allows aggregators to more efficiently collect data on events, rather harvesting (potentially endless) lists of individual events.
+        </p>
+        <p>The following example illustrates basic usage of the proposed <a href="https://github.com/schemaorg/schemaorg/issues/1457#issuecomment-286423792"><code>schema:eventSchedule</code></a> property. The data describes a Tai Chi class that occurs every Wednesday at 7pm:
+        </p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 19</span><span style="text-transform: none">: Adding an event schedule</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A tai chi class intended for beginners"</span>,
+  <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT60M"</span>,
+  <span class="hljs-attr">"eventSchedule"</span>: {
+     <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Schedule"</span>,
+     <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-01-01"</span>,
+     <span class="hljs-attr">"endDate"</span>: <span class="hljs-string">"2017-12-31"</span>,
+     <span class="hljs-attr">"frequency"</span>: <span class="hljs-string">"weekly"</span>,
+     <span class="hljs-attr">"byDay"</span>: <span class="hljs-string">"http://schema.org/Wednesday"</span>,
+     <span class="hljs-attr">"startTime"</span>: <span class="hljs-string">"19:00"</span>,
+     <span class="hljs-attr">"endTime"</span>: <span class="hljs-string">"20:00"</span>
+  }}
+</pre>
+        </div>
+      </section>
+    </section>
+
+    <section typeof="bibo:Chapter" resource="#describing-locations-and-facilities" property="bibo:hasPart">
+      <h3 id="describing-locations-and-facilities" resource="#describing-locations-and-facilities"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3 </span>Describing Locations and Facilities</span>
+      </h3>
+      <p>The following sections provide examples of describing the <a href="https://www.openactive.io/modelling-opportunity-data/#places">Places</a> in which events take place, using the
+        <a href="https://www.openactive.io/modelling-opportunity-data/#describing-locations-code-schema-place-code-and-code-schema-postaladdress-code-">location aspects of the data model</a>.
+      </p>
+
+      <section typeof="bibo:Chapter" resource="#how-do-you-add-a-geographic-location-" property="bibo:hasPart">
+        <h4 id="how-do-you-add-a-geographic-location-" resource="#how-do-you-add-a-geographic-location-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3.1 </span>How do you add a geographic location?</span>
+        </h4>
+        <p>The section on <a href="#how-do-you-add-a-location-to-an-event-">adding a location to an event</a> introduces the basic uses of the <a href="https://schema.org/location"><code>schema:location</code></a> property. In addition to providing an address, some systems may also hold the geographic coordinates of a location.
+        </p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 20</span><span style="text-transform: none">: Locating a leisure centre</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Place"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.better.org.uk/leisure-centre/banes/bath-sports-and-leisure-centre"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Bath Sports and Leisure Centre"</span>,
+  <span class="hljs-attr">"address"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"PostalAddress"</span>,
+      <span class="hljs-attr">"streetAddress"</span>: <span class="hljs-string">"North Parade Road"</span>,
+      <span class="hljs-attr">"addressLocality"</span>: <span class="hljs-string">"Bath"</span>,
+      <span class="hljs-attr">"region"</span>: <span class="hljs-string">"Somerset"</span>,
+      <span class="hljs-attr">"postalCode"</span>: <span class="hljs-string">"BA2 4ET"</span>
+  },
+  
+  <span class="hljs-attr">"geo"</span>: {
+    <span class="hljs-attr">"latitude"</span>: <span class="hljs-string">"51.3816123"</span>,
+    <span class="hljs-attr">"longitude"</span>: <span class="hljs-string">"-2.3544367"</span>
+  }
+  
+}
+</pre>
+        </div>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-do-you-add-contact-details-" property="bibo:hasPart">
+        <h4 id="how-do-you-add-contact-details-" resource="#how-do-you-add-contact-details-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3.2 </span>How do you add contact details?</span>
+        </h4>
+        <p>Contact details for a Place can be expressed using the <a href="https://schema.org/telephone"><code>schema:telephone</code></a> and <a href="https://schema.org/faxNumber"><code>schema:faxNumber</code></a> properties, as shown in the following example:
+        </p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 21</span><span style="text-transform: none">: Adding contact details to a Place</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Place"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.better.org.uk/leisure-centre/banes/bath-sports-and-leisure-centre"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Bath Sports and Leisure Centre"</span>,
+  <span class="hljs-attr">"address"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"PostalAddress"</span>,
+      <span class="hljs-attr">"streetAddress"</span>: <span class="hljs-string">"North Parade Road"</span>,
+      <span class="hljs-attr">"addressLocality"</span>: <span class="hljs-string">"Bath"</span>,
+      <span class="hljs-attr">"region"</span>: <span class="hljs-string">"Somerset"</span>,
+      <span class="hljs-attr">"postalCode"</span>: <span class="hljs-string">"BA2 4ET"</span>
+  },
+  
+  <span class="hljs-attr">"telephone"</span>: <span class="hljs-string">"+44 (0)1225 486905"</span>,
+  <span class="hljs-attr">"faxNumber"</span>: <span class="hljs-string">"+44 (0)1225 486906"</span>  
+}
+</pre>
+        </div>
+        <p>The [<cite><a class="bibref" href="#bib-Modelling-Opportunity-Data">Modelling-Opportunity-Data</a></cite>] specification doesn't provide support for providing contact details for an Event, although these could be provided to users as information about the event at its public URL. </p>
+        <p>Contact information is only currently supported for Place (as shown above) or for individual people or organisations, via the <a href="https://schema.org/contactPoint"><code>schema:contactPoint</code></a> property.</p>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-do-you-add-opening-times-" property="bibo:hasPart">
+        <h4 id="how-do-you-add-opening-times-" resource="#how-do-you-add-opening-times-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3.3 </span>How do you add opening times?</span>
+        </h4>
+        <p>The opening times for a Place can be added using the <a href="https://schema.org/openingHoursSpecification"><code>schema:openingHoursSpecification</code></a> property. This property refers to a structured value known as an <a href="https://schema.org/OpeningHoursSpecification"><code>schema:OpeningHoursSpecification</code></a>.
+        </p>
+        <p>The following example illustrates how to state that a leisure centre is open from 9am to 5pm every day of the week:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 22</span><span style="text-transform: none">: Listing opening hours</span></div>
+          <pre class="hljs javascript" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Place"</span>,
+  <span class="hljs-string">"url"</span>: <span class="hljs-string">"http://www.better.org.uk/leisure-centre/banes/bath-sports-and-leisure-centre"</span>,
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"Bath Sports and Leisure Centre"</span>,
+  <span class="hljs-string">"address"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"PostalAddress"</span>,
+      <span class="hljs-string">"streetAddress"</span>: <span class="hljs-string">"North Parade Road"</span>,
+      <span class="hljs-string">"addressLocality"</span>: <span class="hljs-string">"Bath"</span>,
+      <span class="hljs-string">"region"</span>: <span class="hljs-string">"Somerset"</span>,
+      <span class="hljs-string">"postalCode"</span>: <span class="hljs-string">"BA2 4ET"</span>
+  },
+  
+  <span class="hljs-string">"openingHoursSpecification"</span>: [
+    {
+      <span class="hljs-string">"@type"</span>: <span class="hljs-string">"OpeningHoursSpecification"</span>,
+      <span class="hljs-string">"closes"</span>:  <span class="hljs-string">"17:00:00"</span>,
+      <span class="hljs-string">"dayOfWeek"</span>: <span class="hljs-string">"http://schema.org/Sunday"</span>,
+      <span class="hljs-string">"opens"</span>:  <span class="hljs-string">"09:00:00"</span>
+    },
+    {
+      <span class="hljs-string">"@type"</span>: <span class="hljs-string">"OpeningHoursSpecification"</span>,
+      <span class="hljs-string">"closes"</span>: <span class="hljs-string">"17:00:00"</span> ,
+      <span class="hljs-string">"dayOfWeek"</span>: <span class="hljs-string">"http://schema.org/Saturday"</span>,
+      <span class="hljs-string">"opens"</span>: <span class="hljs-string">"09:00:00"</span>
+    },
+    {
+      <span class="hljs-string">"@type"</span>: <span class="hljs-string">"OpeningHoursSpecification"</span>,
+      <span class="hljs-string">"closes"</span>:  <span class="hljs-string">"17:00:00"</span>,
+      <span class="hljs-string">"dayOfWeek"</span>: <span class="hljs-string">"http://schema.org/Thursday"</span>,
+      <span class="hljs-string">"opens"</span>: <span class="hljs-string">"09:00:00"</span>
+    },
+    {
+      <span class="hljs-string">"@type"</span>: <span class="hljs-string">"OpeningHoursSpecification"</span>,
+      <span class="hljs-string">"closes"</span>: <span class="hljs-string">"17:00:00"</span>,
+      <span class="hljs-string">"dayOfWeek"</span>: <span class="hljs-string">"http://schema.org/Tuesday"</span>,
+      <span class="hljs-string">"opens"</span>: <span class="hljs-string">"09:00:00"</span>
+    },
+    {
+      <span class="hljs-string">"@type"</span>: <span class="hljs-string">"OpeningHoursSpecification"</span>,
+      <span class="hljs-string">"closes"</span>: <span class="hljs-string">"17:00:00"</span>,
+      <span class="hljs-string">"dayOfWeek"</span>:  <span class="hljs-string">"http://schema.org/Friday"</span>,
+      <span class="hljs-string">"opens"</span>: <span class="hljs-string">"09:00:00"</span>
+    },
+    {
+      <span class="hljs-string">"@type"</span>: <span class="hljs-string">"OpeningHoursSpecification"</span>,
+      <span class="hljs-string">"closes"</span>: <span class="hljs-string">"17:00:00"</span>,
+      <span class="hljs-string">"dayOfWeek"</span>: <span class="hljs-string">"http://schema.org/Monday"</span>,
+      <span class="hljs-string">"opens"</span>: <span class="hljs-string">"09:00:00"</span>
+    },
+    {
+      <span class="hljs-string">"@type"</span>: <span class="hljs-string">"OpeningHoursSpecification"</span>,
+      <span class="hljs-string">"closes"</span>: <span class="hljs-string">"17:00:00"</span>,
+      <span class="hljs-string">"dayOfWeek"</span>:  <span class="hljs-string">"http://schema.org/Wednesday"</span>,
+      <span class="hljs-string">"opens"</span>: <span class="hljs-string">"09:00:00"</span>
+    }
+  ]}
+  
+}
+</pre>
+        </div>
+        <p>In the above example the property value is an array of opening times.
+        </p>
+        <p>The Schema.org definition of <a href="https://schema.org/OpeningHoursSpecification"><code>schema:OpeningHoursSpecification</code></a> includes more detail and examples of its usage.</p>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-do-you-describe-the-facilities-at-a-location-" property="bibo:hasPart">
+        <h4 id="how-do-you-describe-the-facilities-at-a-location-" resource="#how-do-you-describe-the-facilities-at-a-location-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3.4 </span>How do you describe the facilities at a location?</span>
+        </h4>
+        <p>A Place, such as a Leisure Centre, might include facilities such as a football pitch, swimming pool, etc. To help distinguish between a Place and a facility, Schema.org defines some additional types, e.g. a <a href="https://schema.org/CivicStructure">CivicStructure</a> or a <a href="https://schema.org/SportsActivityLocation">SportsActivityLocation</a>.
+        </p>
+        <p>The relationship between a Place and its facilities can be expressed using the containment properties (<a href="https://schema.org/containedInPlace"><code>schema:containedInPlace</code></a> and <a href="https://schema.org/containsPlace"><code>schema:containsPlace</code></a>). </p>
+        <p>The following example shows how to describe that a Leisure Centre includes a gym. Note that the gym has a different type:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 23</span><span style="text-transform: none">: Describing facilities at a leisure centre</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Place"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.better.org.uk/leisure-centre/banes/bath-sports-and-leisure-centre"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Bath Sports and Leisure Centre"</span>,
+  <span class="hljs-attr">"address"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"PostalAddress"</span>,
+      <span class="hljs-attr">"streetAddress"</span>: <span class="hljs-string">"North Parade Road"</span>,
+      <span class="hljs-attr">"addressLocality"</span>: <span class="hljs-string">"Bath"</span>,
+      <span class="hljs-attr">"region"</span>: <span class="hljs-string">"Somerset"</span>,
+      <span class="hljs-attr">"postalCode"</span>: <span class="hljs-string">"BA2 4ET"</span>
+  },
+  
+  <span class="hljs-attr">"containsPlace"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"SportsActivityLocation"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.better.org.uk/leisure-centre/banes/bath-sports-and-leisure-centre/gym"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Gym"</span>
+  }
+  }
+</pre>
+        </div>
+        <p>This allows Events to be associated with a more specific location within a larger venue. In the following example, a Tai Chi class is described as occuring in a Sports Hall within a Leisure Centre:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 24</span><span style="text-transform: none">: Associating an event with a facility in a venue</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-03-22T20:00:00"</span>,
+  <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"Tai Chi"</span>,
+  <span class="hljs-attr">"location"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"SportsActivityLocation"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Main Sports Hall"</span>,
+    <span class="hljs-attr">"containedIn"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Place"</span>,
+      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.better.org.uk/leisure-centre/banes/bath-sports-and-leisure-centre"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Bath Sports and Leisure Centre"</span>,
+      <span class="hljs-attr">"address"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"PostalAddress"</span>,
+        <span class="hljs-attr">"streetAddress"</span>: <span class="hljs-string">"North Parade Road"</span>,
+        <span class="hljs-attr">"addressLocality"</span>: <span class="hljs-string">"Bath"</span>,
+        <span class="hljs-attr">"region"</span>: <span class="hljs-string">"Somerset"</span>,
+        <span class="hljs-attr">"postalCode"</span>: <span class="hljs-string">"BA2 4ET"</span>
+      }
+    }
+  }
+
+}
+</pre>
+        </div>
+        <p>Because a facility is treated as a Place, it can be described using the other properties shown elsewhere in this primer. So, for example the gym may have different opening hours to the rest of the leisure centre.
+        </p>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#how-do-you-describe-walking-trails-and-other-opportunities-at-a-location-" property="bibo:hasPart">
+        <h4 id="how-do-you-describe-walking-trails-and-other-opportunities-at-a-location-" resource="#how-do-you-describe-walking-trails-and-other-opportunities-at-a-location-"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3.5 </span>How do you describe walking trails and other opportunities at a location?</span>
+        </h4>
+        <p>Not all opportunities to be physically activity are organised Events. Some opportunities are self-directed for example walking routes or mountain bike trails. These are referred to as <a href="https://www.openactive.io/modelling-opportunity-data/#activity-opportunities">Activity Opportunities</a>.
+        </p>
+        <p>The <a href="https://www.openactive.io/modelling-opportunity-data/#describing-activity-opportunities-code-oa-activityopportunity-code-">data model</a> explains that these types of opportunity are similar to events except:</p>
+        <ul>
+          <li>they have a specific type, <a href="https://www.openactive.io/ns/#ActivityOpportunity"><code>oa:ActivityOpportunity</code></a></li>
+          <li>do not have a schedule, start or end time (but may have a duration)</li>
+        </ul>
+        <p>The following example describes a 4 hour walking trail around Bath organised by the National Trust:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 25</span><span style="text-transform: none">: Descring a walking trail</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"ActivityOpportunity"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Bath Skyline Walk"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Savour the magnificent views down into the picturesque World Heritage City of Bath on our most popular walking trail"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://www.nationaltrust.org.uk/bath-skyline/trails/bath-skyline-walk"</span>,
+  <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT4H"</span>,
+  <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"Walking"</span>,  <span class="hljs-attr">"category"</span>: [<span class="hljs-string">"Moderate"</span>, <span class="hljs-string">"Dog-friendly"</span>],
+  <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://www.nationaltrust.org.uk/images/1431731033620-mapbathskyline.jpg"</span>,
+  <span class="hljs-attr">"location"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Place"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Bathwick Hill"</span>,
+    <span class="hljs-attr">"geo"</span>: {
+      <span class="hljs-attr">"latitude"</span>: <span class="hljs-string">"51.380837"</span>,
+      <span class="hljs-attr">"longitude"</span>: <span class="hljs-string">"-2.3462374"</span>
+    }
+  },
+  <span class="hljs-attr">"organiser"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Organization"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"National Trust"</span>
+  }
+
+}
+</pre>
+        </div>
+      </section>
+    </section>
+
+    <section typeof="bibo:Chapter" resource="#describing-activity-lists" property="bibo:hasPart">
+      <h3 id="describing-activity-lists" resource="#describing-activity-lists"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.4 </span>Describing Activity Lists</span>
+      </h3>
+      <p>This section describes how to publish data about <a href="https://www.openactive.io/modelling-opportunity-data/#physical-activities">Physical Activities</a> using <a href="https://www.openactive.io/modelling-opportunity-data/#describing-activity-lists-code-skos-conceptscheme-code-and-physical-activity-code-skos-concept-code-">described using SKOS</a></p>
+
+      <section typeof="bibo:Chapter" resource="#describing-a-simple-list-of-activities" property="bibo:hasPart">
+        <h4 id="describing-a-simple-list-of-activities" resource="#describing-a-simple-list-of-activities"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.4.1 </span>Describing a simple list of activities</span>
+        </h4>
+        <p>An Activity List provides descriptions of physical activities. The simplest form of activity list is just a list of activity names as shown below:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 26</span><span style="text-transform: none">: A simple activity list</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"ConceptScheme"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/activity-list"</span>,
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Example Activity List"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An example activity list"</span>,
+  <span class="hljs-attr">"concepts"</span>: [{
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Concept"</span>,
+    <span class="hljs-attr">"prefLabel"</span>: <span class="hljs-string">"Karate"</span>,
+  }, {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Concept"</span>,
+    <span class="hljs-attr">"prefLabel"</span>: <span class="hljs-string">"Tai Chi"</span>,
+  }]
+}
+</pre>
+        </div>
+        <p>An Activity List should have a title, a description and a list of concepts. Each concept in the list should have a <a href="https://www.w3.org/2009/08/skos-reference/skos.html#prefLabel"><code>skos:prefLabel</code></a> that provides the canonical name for the activity.</p>
+        <p>When publishing an activity list it should also have a licence that describes how the list can be used. This is described in <a href="http://localhost:4000/EditorsDraft/index.html#how-can-activity-lists-be-published-using-json-ld-">Publshing Activity Lists as open data</a></p>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#adding-alternate-names-for-an-activity" property="bibo:hasPart">
+        <h4 id="adding-alternate-names-for-an-activity" resource="#adding-alternate-names-for-an-activity"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.4.2 </span>Adding alternate names for an activity</span>
+        </h4>
+        <p>There may be several ways to refer to a physical activity. This includes alternate names or spellings of the activity. Providing these alternative labels can help applications create better user interfaces by guiding them towards using a standard set of activity names.</p>
+        <p>The following example shows how to add an <a href="https://www.w3.org/2009/08/skos-reference/skos.html#altLabel"><code>skos:altLabel</code></a> property to an activity. In this case a simple spelling variant:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 27</span><span style="text-transform: none">: Adding an alternative name for an activity</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"ConceptScheme"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/activity-list"</span>,
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Example Activity List"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An example activity list"</span>,
+  <span class="hljs-attr">"concepts"</span>: [{
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Concept"</span>,
+    <span class="hljs-attr">"prefLabel"</span>: <span class="hljs-string">"Tai Chi"</span>,
+    <span class="hljs-attr">"altLabel"</span>: <span class="hljs-string">"Tai-chi"</span>
+  }]
+}
+</pre>
+        </div>
+        <p>Any number of alternative labels can be added to an activity by providing a list of values:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 28</span><span style="text-transform: none">: Adding multiple names for an activity</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"ConceptScheme"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/activity-list"</span>,
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Example Activity List"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An example activity list"</span>,
+  <span class="hljs-attr">"concepts"</span>: [{
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Concept"</span>,
+    <span class="hljs-attr">"prefLabel"</span>: <span class="hljs-string">"Tai Chi"</span>,
+    <span class="hljs-attr">"altLabel"</span>: [<span class="hljs-string">"Tai-chi"</span>, <span class="hljs-string">"Tai Chi Chuan"</span>]
+  }]
+}
+</pre>
+        </div>
+      </section>
+
+      <section typeof="bibo:Chapter" resource="#describing-hierarchical-lists-of-activities" property="bibo:hasPart">
+        <h4 id="describing-hierarchical-lists-of-activities" resource="#describing-hierarchical-lists-of-activities"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.4.3 </span>Describing hierarchical lists of activities</span>
+        </h4>
+        <p>More complex activity lists describe a hierarchy of physical activities. For example Judo, Karate and Kendo are all examples of a broader category of Martial Arts. This is demonstrated in the following example:</p>
+        <div class="example">
+          <div class="example-title marker"><span>Example 29</span><span style="text-transform: none">: Describing a hierarchical activity list</span></div>
+          <pre class="hljs json" aria-busy="false" aria-live="polite">
+{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"ConceptScheme"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.example.org/activity-list"</span>,
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Activity List"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An example activity list"</span>,
+  <span class="hljs-attr">"concepts"</span>: [{
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Concept"</span>,
+    <span class="hljs-attr">"prefLabel"</span>: <span class="hljs-string">"Martial Arts"</span>,
+    <span class="hljs-attr">"narrower"</span>: [{
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Concept"</span>,
+      <span class="hljs-attr">"prefLabel"</span>: <span class="hljs-string">"Judo"</span>
+    },
+    {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Concept"</span>,
+      <span class="hljs-attr">"prefLabel"</span>: <span class="hljs-string">"Kendo"</span>
+    },
+    {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Concept"</span>,
+      <span class="hljs-attr">"prefLabel"</span>: <span class="hljs-string">"Karate"</span>
+    }]  }]
+}
+</pre>
+        </div>
+      </section>
+    </section>
+  </section>
+
+  <section typeof="bibo:Chapter" resource="#publishing-opportunity-data" property="bibo:hasPart">
+    <!--OddPage-->
+    <h2 id="publishing-opportunity-data" resource="#publishing-opportunity-data"><span property="xhv:role" resource="xhv:heading"><span class="secno">5. </span>Publishing opportunity data</span>
+    </h2>
+    <p>This section provides some advice on how to publish opportunity data for others to reuse.</p>
+
+    <section typeof="bibo:Chapter" resource="#how-can-activity-lists-be-published-using-json-ld-" property="bibo:hasPart">
+      <h3 id="how-can-activity-lists-be-published-using-json-ld-" resource="#how-can-activity-lists-be-published-using-json-ld-"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1 </span>How can activity lists be published using JSON-LD?</span>
+      </h3>
+      <p>Activity Lists can be published as open data by publishing a JSON-LD file that developers can download and use within their application.</p>
+      <p>The data could be added as a download that is made available from an "open data" page on your organisations website.</p>
+      <p>Ensure that the activity list has a <a href="http://purl.org/dc/terms/license"><code>license</code></a> property that refers to a standard open data licence so that users can be certain that they have rights to use the data.
+      </p>
+    </section>
+
+    <section typeof="bibo:Chapter" resource="#how-can-session-data-be-published-via-an-api-" property="bibo:hasPart">
+      <h3 id="how-can-session-data-be-published-via-an-api-" resource="#how-can-session-data-be-published-via-an-api-"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.2 </span>How can session data be published via an API?</span>
+      </h3>
+      <p>The <a href="https://www.openactive.io/realtime-paged-data-exchange/">Realtime Paged Data Exchange</a> specification defines an API that allows opportunity data to be published in a way that can be easily harvested by reusers.
+      </p>
+      <p>The API does not define how opportunity data should be structured. It only defines <a href="https://www.openactive.io/realtime-paged-data-exchange/#-data-">a generic data structure</a> which can accept any JSON object.
+      </p>
+      <p>That object can conform to the JSON-LD structure described in this primer.</p>
+      <p>For more detail, consult the OpenActive website which provides more documentation on the process of <a href="https://www.openactive.io/technology.html">opening your data</a> using this API.</p>
+    </section>
+
+    <section typeof="bibo:Chapter" resource="#how-can-opportunity-data-be-embedded-in-web-pages-" property="bibo:hasPart">
+      <h3 id="how-can-opportunity-data-be-embedded-in-web-pages-" resource="#how-can-opportunity-data-be-embedded-in-web-pages-"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.3 </span>How can opportunity data be embedded in web pages?</span>
+      </h3>
+      <p>Opportunity data can be embedded in web pages to make it acccessible to search engines and similar web crawlers. JSON-LD can be embedded in web pages using a script tag with a type of <code>application/ld+json</code>:
+      </p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 30</span><span style="text-transform: none">: Embedding JSON</span></div>
+        <pre class="hljs xml" aria-busy="false" aria-live="polite">
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"application/ld+json"</span>&gt;</span><span class="javascript">
+{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"https://www.openactive.io/ns/oa.jsonld"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Event"</span>,
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"Tai chi Class"</span>,
+  <span class="hljs-string">"url"</span>: <span class="hljs-string">"http://www.example.org/events/1"</span>,
+  <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2017-03-22T20:00:00"</span>,
+  <span class="hljs-string">"activity"</span>: <span class="hljs-string">"Tai Chi"</span>,
+  <span class="hljs-string">"location"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"Place"</span>,
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"ExampleCo Gym"</span>,
+    <span class="hljs-string">"address"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"PostalAddress"</span>,
+      <span class="hljs-string">"streetAddress"</span>: <span class="hljs-string">"1 High Street"</span>,
+      <span class="hljs-string">"addressLocality"</span>: <span class="hljs-string">"Bristol"</span>,
+      <span class="hljs-string">"postalCode"</span>: <span class="hljs-string">"BS1 4SD"</span>
+    }
+  }
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span> 
+
+
+Using this method a machine-readable description of an Event can be directly included within the web page for the event.</pre>
+      </div>
+    </section>
+  </section>
+
+  <section class="appendix" typeof="bibo:Chapter" resource="#acknowledgements" property="bibo:hasPart">
+    <!--OddPage-->
+    <h2 id="acknowledgements" resource="#acknowledgements"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>Acknowledgements</span>
+    </h2>
+    <p>The editors thank <a href="http://www.w3.org/community/openactive/participants">all members</a> of the Openactive CG for contributions of various kinds.</p>
+  </section>
+
+  <section id="references" class="appendix" typeof="bibo:Chapter" resource="#references" property="bibo:hasPart">
+    <!--OddPage-->
+    <h2 id="h-references" resource="#h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">B. </span>References</span>
+    </h2>
+
+    <section id="normative-references" typeof="bibo:Chapter" resource="#normative-references" property="bibo:hasPart">
+      <h3 id="h-normative-references" resource="#h-normative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">B.1 </span>Normative references</span>
+      </h3>
+      <dl class="bibliography" resource=""><dt id="bib-RFC2119">[RFC2119]</dt>
+        <dd><a href="https://tools.ietf.org/html/rfc2119" property="dc:requires"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner. IETF. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires">https://tools.ietf.org/html/rfc2119</a>
+        </dd>
+      </dl>
+    </section>
+
+    <section id="informative-references" typeof="bibo:Chapter" resource="#informative-references" property="bibo:hasPart">
+      <h3 id="h-informative-references" resource="#h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">B.2 </span>Informative references</span>
+      </h3>
+      <dl class="bibliography" resource=""><dt id="bib-ISO8601">[ISO8601]</dt>
+        <dd><a href="http://www.iso.org/iso/catalogue_detail?csnumber=40874" property="dc:references"><cite>Representation of dates and times. ISO 8601:2004.</cite></a>. International Organization for Standardization (ISO). 2004. ISO 8601:2004. URL: <a href="http://www.iso.org/iso/catalogue_detail?csnumber=40874" property="dc:references">http://www.iso.org/iso/catalogue_detail?csnumber=40874</a>
+        </dd><dt id="bib-JSON-LD">[JSON-LD]</dt>
+        <dd><a href="https://www.w3.org/TR/json-ld/" property="dc:references"><cite>JSON-LD 1.0</cite></a>. W3C. W3C Recommendation. URL: <a href="https://www.w3.org/TR/json-ld/" property="dc:references">https://www.w3.org/TR/json-ld/</a>
+        </dd><dt id="bib-Modelling-Opportunity-Data">[Modelling-Opportunity-Data]</dt>
+        <dd><a href="https://www.openactive.io/modelling-opportunity-data/" property="dc:references"><cite>Modelling Opportunity Data</cite></a>. Open Active Community Group. CG-DRAFT. URL: <a href="https://www.openactive.io/modelling-opportunity-data/" property="dc:references">https://www.openactive.io/modelling-opportunity-data/</a>
+        </dd><dt id="bib-OpenActive-Vocabulary">[OpenActive-Vocabulary]</dt>
+        <dd><a href="https://www.openactive.io/ns/" property="dc:references"><cite>OpenActive Vocabulary</cite></a>. Open Active Community Group. CG-DRAFT. URL: <a href="https://www.openactive.io/ns/" property="dc:references">https://www.openactive.io/ns/</a>
+        </dd><dt id="bib-Realtime-Paged-Data-Exchange">[Realtime-Paged-Data-Exchange]</dt>
+        <dd><a href="https://www.openactive.io/realtime-paged-data-exchange/" property="dc:references"><cite>Realtime Paged Data Exchange</cite></a>. Open Active Community Group. CG-DRAFT. URL: <a href="https://www.openactive.io/realtime-paged-data-exchange/" property="dc:references">https://www.openactive.io/realtime-paged-data-exchange/</a>
+        </dd><dt id="bib-SCHEMA-ORG">[SCHEMA-ORG]</dt>
+        <dd><a href="http://schema.org/" property="dc:references"><cite>Schema.org</cite></a>. URL: <a href="http://schema.org/" property="dc:references">http://schema.org/</a>
+        </dd><dt id="bib-SKOS">[SKOS]</dt>
+        <dd><a href="https://www.w3.org/TR/skos-primer" property="dc:references"><cite>SKOS Simple Knowledge Organization System Primer</cite></a>. W3C. W3C Note. URL: <a href="https://www.w3.org/TR/skos-primer" property="dc:references">https://www.w3.org/TR/skos-primer</a>
+        </dd>
+      </dl>
+    </section>
+  </section>
+  <p role="navigation" id="back-to-top"><a href="#toc"><abbr title="Back to Top">↑</abbr></a></p>
+  <script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+</body>
+</html>
